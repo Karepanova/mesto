@@ -1,0 +1,14 @@
+.element {
+  background: #FFFFFF;
+  border-radius: 10px;
+  max-width: 282px;
+  height: 361px;
+  position: relative;
+}
+
+/*
+@media all and (max-width: 630px) {
+  .element {
+
+  }
+}*/
