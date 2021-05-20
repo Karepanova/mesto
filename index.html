@@ -10,7 +10,6 @@
 
 <div class="conteiner">
   <div class="page">
-
     <header class="header">
       <img alt="Лого" class="header__logo" src="./images/header-logo.svg">
       <img alt="Линия" class="header__line" src="./images/header-line.png">
@@ -22,11 +21,11 @@
         <div class="profile__info">
           <div class="profile__record">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <div class="profile__edit-button"></div>
+            <div class="profile__edit-button"><!--кнопка редактировать--></div>
           </div>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
-        <div class="profile__add-button"></div>
+        <div class="profile__add-button"><!--кнопка добавить--></div>
       </section>
 
       <section class="elements">
@@ -89,13 +88,12 @@
 
 <section class="popup">
   <div class="popup__container">
-    <button class="popup__close-icon" type="button"></button>
+    <button class="popup__close-icon" type="button"><!--кнопка закрыть попап--></button>
     <h2 class="popup__title">Редактировать профиль</h2>
     <form class="popup__data">
-
-      <input type="text" value="Жак-Ив Кусто" class="popup__info" placeholder="Имя">
-      <input type="text" value="Исследователь океана" class="popup__info" placeholder="О себе">
-      <button class="popup__button" type="submit">Сохранить</button>
+      <input type="text" value="Жак-Ив Кусто" class="popup__info popup__info_name" placeholder="Имя">
+      <input type="text" value="Исследователь океана" class="popup__info popup__info_about" placeholder="О себе">
+      <button class="popup__button" type="submit">Сохранить<!--кнопка--></button>
     </form>
   </div>
 </section>
