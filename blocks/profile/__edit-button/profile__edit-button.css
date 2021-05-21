@@ -4,6 +4,7 @@
   width: 24px;
   margin-left: 20px;
   cursor: pointer;
+  border: none;
 }
 
 @media all and (max-width: 630px) {

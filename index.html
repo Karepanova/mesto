@@ -21,11 +21,11 @@
         <div class="profile__info">
           <div class="profile__record">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <div class="profile__edit-button"><!--кнопка редактировать--></div>
+            <button type="button" class="profile__edit-button"><!--кнопка редактировать--></button>
           </div>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
-        <div class="profile__add-button"><!--кнопка добавить--></div>
+        <button type="button" class="profile__add-button"><!--кнопка добавить--></button>
       </section>
 
       <section class="elements">
@@ -33,7 +33,9 @@
           <img alt="Карачаевск" class="element__img" src="./images/karachaevo-cherkessk.png">
           <div class="element__card">
             <h2 class="element__text">Карачаевск</h2>
-            <img alt="Лайк" class="element__like" src="./images/like.png">
+            <button type="button" class="element__button">
+              <img alt="Лайк" class="element__like" src="./images/like.png">
+            </button>
           </div>
         </div>
 
@@ -41,7 +43,9 @@
           <img alt="Гора Эльбрус" class="element__img" src="./images/elbrus.png">
           <div class="element__card">
             <h2 class="element__text">Гора Эльбрус</h2>
-            <img alt="Лайк" class="element__like" src="./images/like.png">
+            <button type="button" class="element__button">
+              <img alt="Лайк" class="element__like" src="./images/like.png">
+            </button>
           </div>
         </div>
 
@@ -49,7 +53,9 @@
           <img alt="Домбай" class="element__img" src="./images/dombay.png">
           <div class="element__card">
             <h2 class="element__text">Домбай</h2>
-            <img alt="Лайк" class="element__like" src="./images/like.png">
+            <button type="button" class="element__button">
+              <img alt="Лайк" class="element__like" src="./images/like.png">
+            </button>
           </div>
         </div>
 
@@ -57,7 +63,9 @@
           <img alt="Гора Эльбрус" class="element__img" src="./images/elbrus.png">
           <div class="element__card">
             <h2 class="element__text">Гора Эльбрус</h2>
-            <img alt="Лайк" class="element__like" src="./images/like.png">
+            <button type="button" class="element__button">
+              <img alt="Лайк" class="element__like" src="./images/like.png">
+            </button>
           </div>
         </div>
 
@@ -65,7 +73,9 @@
           <img alt="Домбай" class="element__img" src="./images/dombay.png">
           <div class="element__card">
             <h2 class="element__text">Домбай</h2>
-            <img alt="Лайк" class="element__like" src="./images/like.png">
+            <button type="button" class="element__button">
+              <img alt="Лайк" class="element__like" src="./images/like.png">
+            </button>
           </div>
         </div>
 
@@ -73,7 +83,9 @@
           <img alt="Карачаево-Черкесск" class="element__img" src="./images/karachaevo-cherkessk.png">
           <div class="element__card">
             <h2 class="element__text">Карачаево-Черкесская Республика</h2>
-            <img alt="Лайк" class="element__like" src="./images/like.png">
+            <button type="button" class="element__button">
+              <img alt="Лайк" class="element__like" src="./images/like.png">
+            </button>
           </div>
         </div>
       </section>
@@ -90,9 +102,10 @@
   <div class="popup__container">
     <button class="popup__close-icon" type="button"><!--кнопка закрыть попап--></button>
     <h2 class="popup__title">Редактировать профиль</h2>
-    <form class="popup__data">
-      <input type="text" value="Жак-Ив Кусто" class="popup__info popup__info_name" placeholder="Имя">
-      <input type="text" value="Исследователь океана" class="popup__info popup__info_about" placeholder="О себе">
+    <form name="form" class="popup__data">
+      <input type="text" name="firstname" value="Жак-Ив Кусто" class="popup__info popup__info_name" placeholder="Имя">
+      <input type="text" name="describe" value="Исследователь океана" class="popup__info popup__info_about"
+             placeholder="О себе">
       <button class="popup__button" type="submit">Сохранить<!--кнопка--></button>
     </form>
   </div>

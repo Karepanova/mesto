@@ -3,6 +3,7 @@
   height: 50px;
   width: 150px;
   cursor: pointer;
+  border: none;
 }
 
 @media all and (max-width: 630px) {
