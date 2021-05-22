@@ -1,5 +1,5 @@
 .element__button {
-    background: url(../../../images/like.png) no-repeat;
+    background: url(../../../images/like.svg) no-repeat;
     border: none;
     padding: 0;
     cursor: pointer;
@@ -12,6 +12,6 @@
 }
 
 .element__button:active {
-    background: url(../../../images/black-like.png) no-repeat;
+    background: url(../../../images/black-like.svg) no-repeat;
 
 }

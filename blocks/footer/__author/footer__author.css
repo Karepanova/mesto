@@ -1,4 +1,4 @@
-.footer__autor {
+.footer__author {
   margin: 0;
   color: #545454;
   font-weight: normal;
@@ -7,7 +7,7 @@
 }
 
 @media all and (max-width: 630px) {
-  .footer__autor {
+  .footer__author {
     font-size: 14px;
     line-height: 17px;
   }

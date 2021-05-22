@@ -2,20 +2,12 @@
   display: flex;
   justify-content: space-between;
   margin: 0 15% 50px;
+  align-items: center;
 }
 
 @media all and (max-width: 950px) {
   .profile {
     flex-direction: column;
-    justify-content: space-between;
     margin: 0 19px 36px;
-    align-items: center;
-  }
+   }
 }
-
-/*
-@media all and (max-width: 630px) {
-  .profile {
-
-  }
-}*/

@@ -6,12 +6,13 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 87%;
+  max-width: 300px;
 }
 
 @media all and (max-width: 630px) {
   .profile__title {
     font-size: 27px;
     line-height: 33px;
+    max-width: 218px;
   }
 }
