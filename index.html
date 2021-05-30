@@ -20,69 +20,74 @@
         <div class="profile__info">
           <div class="profile__record">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <button type="button" class="profile__edit-button"><!--кнопка редактировать--></button>
+            <button class="profile__edit-button" type="button"><!--кнопка редактировать--></button>
           </div>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
-        <button type="button" class="profile__add-button"><!--кнопка добавить--></button>
+        <button class="profile__add-button" type="button"><!--кнопка добавить--></button>
       </section>
 
       <section class="elements">
         <div class="element">
+          <button class="profile__delete" type="button"><!--кнопка удалить--></button>
           <img alt="Карачаевск" class="element__img" src="./images/karachaevo-cherkessk.png">
           <div class="element__card">
             <h2 class="element__text">Карачаевск</h2>
-            <button type="button" class="element__button">
-              <!--<img alt="Лайк" class="element__like" src="./images/like.png">-->
-            </button>
+            <button class="element__button" type="button"><!--кнопка лайк--></button>
           </div>
         </div>
 
         <div class="element">
+          <button class="profile__delete" type="button"><!--кнопка удалить--></button>
           <img alt="Гора Эльбрус" class="element__img" src="./images/elbrus.png">
           <div class="element__card">
             <h2 class="element__text">Гора Эльбрус</h2>
-            <button type="button" class="element__button">
+            <button class="element__button" type="button">
               <!--<img alt="Лайк" class="element__like" src="./images/like.png">-->
             </button>
+
           </div>
         </div>
 
         <div class="element">
+          <button class="profile__delete" type="button"><!--кнопка удалить--></button>
           <img alt="Домбай" class="element__img" src="./images/dombay.png">
           <div class="element__card">
             <h2 class="element__text">Домбай</h2>
-            <button type="button" class="element__button">
+            <button class="element__button" type="button">
               <!--<img alt="Лайк" class="element__like" src="./images/like.png">-->
             </button>
           </div>
         </div>
 
         <div class="element">
+          <button class="profile__delete" type="button"><!--кнопка удалить--></button>
           <img alt="Гора Эльбрус" class="element__img" src="./images/elbrus.png">
           <div class="element__card">
             <h2 class="element__text">Гора Эльбрус</h2>
-            <button type="button" class="element__button">
+            <button class="element__button" type="button">
               <!--<img alt="Лайк" class="element__like" src="./images/like.png">-->
             </button>
           </div>
         </div>
 
         <div class="element">
+          <button class="profile__delete" type="button"><!--кнопка удалить--></button>
           <img alt="Домбай" class="element__img" src="./images/dombay.png">
           <div class="element__card">
             <h2 class="element__text">Домбай</h2>
-            <button type="button" class="element__button">
+            <button class="element__button" type="button">
               <!--<img alt="Лайк" class="element__like" src="./images/like.png">-->
             </button>
           </div>
         </div>
 
         <div class="element">
+          <button class="profile__delete" type="button"><!--кнопка удалить--></button>
           <img alt="Карачаево-Черкесск" class="element__img" src="./images/karachaevo-cherkessk.png">
           <div class="element__card">
             <h2 class="element__text">Карачаево-Черкесская Республика</h2>
-            <button type="button" class="element__button">
+            <button class="element__button" type="button">
               <!--<img alt="Лайк" class="element__like" src="./images/like.png">-->
             </button>
           </div>
@@ -101,14 +106,32 @@
   <div class="popup__container">
     <button class="popup__close-icon" type="button"><!--кнопка закрыть попап--></button>
     <h2 class="popup__title">Редактировать профиль</h2>
-    <form name="form" class="popup__data">
-      <input type="text" name="firstname" value="Жак-Ив Кусто" class="popup__info popup__info_profile_name" placeholder="Имя">
-      <input type="text" name="describe" value="Исследователь океана" class="popup__info popup__info_profile_about"
-             placeholder="О себе">
+    <form class="popup__data" name="form">
+      <input class="popup__info popup__info_profile_name" name="firstname" placeholder="Имя" required type="text"
+             value="Жак-Ив Кусто">
+      <input class="popup__info popup__info_profile_about" name="describe" placeholder="О себе" required
+             type="text"
+             value="Исследователь океана">
       <button class="popup__button" type="submit">Сохранить<!--кнопка--></button>
     </form>
   </div>
 </div>
+
+
+<div class="form-empty">
+  <div class="form-empty__container">
+    <button class="form-empty__close-icon" type="button"><!--кнопка закрыть попап--></button>
+    <h2 class="form-empty__title">Новое место</h2>
+    <form class="form-empty__data" name="form">
+      <input class="form-empty__field form-empty__info_profile_naming" name="naming" placeholder="Название" required
+             type="text" value="Название">
+      <input class="form-empty__field form-empty__info_profile_link" name="link" placeholder="Ссылка на картинку"
+             required type="url" value="Ссылка на картинку">
+      <button class="form-empty__button" type="submit">Создать<!--кнопка--></button>
+    </form>
+  </div>
+</div>
+
 
 <script src="scripts/script.js"></script>
 
