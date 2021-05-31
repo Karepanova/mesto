@@ -1,0 +1,17 @@
+.form-empty__field {
+    width: 100%;
+    border: none;
+    padding-bottom: 13px;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+    font-family: inherit;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    /*color: #C4C4C4;*/
+}
+
+.form-empty__field:last-of-type {
+    margin-bottom: 0;
+}

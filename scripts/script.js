@@ -53,6 +53,9 @@ popupCloseIcon.addEventListener('click', closeClick); /*ф-ция удалить
 formEmptyCloseIcon.addEventListener('click', closeClickFormEmpty); /*ф-ция удалить класс для формы с фото*/
 formElement.addEventListener('submit', formSubmitHandler); /*ф-ция отправки формы*/
 
+const elementsList = document.querySelector('.elements');
+const elementsTemplate = document.querySelector('#elements-template').content;
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -79,3 +82,20 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+initialCards.forEach(function(element){
+  const initialElement = elementsTemplate.cloneNode(true);
+  initialElement.querySelector('.element__text').textContent = element.name;
+  initialElement.querySelector('.element__img').src = element.link;
+  setEventListeners(initialElement);
+  elementsList.append(initialElement);
+})
+
+function handleDelete(event) {
+  event.target.closest('.element').remove(); //удаление карточку
+}
+
+function setEventListeners (element) {
+  element.querySelector('.profile__delete').addEventListener('click', handleDelete)
+  //нажатие кнопки удалить вызывается ф-ция удаления блока
+}
