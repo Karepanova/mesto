@@ -11,7 +11,7 @@
     opacity: 0.5;
 }
 
-.element__button:active {
+/*.element__button:active {
     background: url(../../../images/black-like.svg) no-repeat;
+}*/
 
-}
