@@ -12,7 +12,7 @@ const subtitle = document.querySelector('.profile__subtitle');// Выберит�
 
 const addButton = content.querySelector('.profile__add-button');
 const formEmpty = document.querySelector('.form-empty');
-const elementImg = document.querySelector('.element__img');
+
 
 const formEmptyCloseIcon = formEmpty.querySelector('.form-empty__close-icon');
 const profileNaming = document.querySelector('.form-empty__info_profile_naming'); //из импута
@@ -33,11 +33,9 @@ function openClickFormEmpty() {
  profileLink.value = ''; //чистит импут
 }
 
-/*
 function openClickImgPopup() {
- imagePopup.classList.add('popup_opened'); /!*добавить модификатор открытия для фото попап*!/
+ imagePopup.classList.add('popup_opened'); /*добавить модификатор открытия для фото попап*/
 }
-*/
 
 function closeClick() {
  popup.classList.remove('popup_opened'); /*удалить модификатор для "редактировать профиль"*/
@@ -68,7 +66,7 @@ function formSubmitHandlerForm(evt) {
 
 editButton.addEventListener('click', openClick); /*ф-ция добавить класс*/
 addButton.addEventListener('click', openClickFormEmpty); /*ф-ция добавить класс для формы с фото*/
-/*elementImg.addEventListener('click', openClickImgPopup);*/ /*ф-ция добавить класс для поп открытия картинки*/
+
 
 popupCloseIcon.addEventListener('click', closeClick); /*ф-ция удалить класс*/
 formEmptyCloseIcon.addEventListener('click', closeClickFormEmpty); /*ф-ция удалить класс для формы с фото*/
@@ -115,21 +113,23 @@ function renderItem(element) {
  const initialElement = elementsTemplate.cloneNode(true);
  initialElement.querySelector('.element__text').textContent = element.name;
  initialElement.querySelector('.element__img').src = element.link;
- initialElement.querySelector('.element__button').addEventListener('click', function (event) {
-  event.target.classList.toggle('element__button-active'); /*лайки*/
- });
+
  setEventListeners(initialElement);
  elementsList.prepend(initialElement);
 }
-
 renderItems();
-
 
 function handleDelete(event) {
  event.target.closest('.element').remove(); //удаление карточки
 }
 
+function handleLike (event){
+ event.target.classList.toggle('element__button-active'); /*лайки*/
+}
+
 function setEventListeners(element) {
- element.querySelector('.profile__delete').addEventListener('click', handleDelete)
+ element.querySelector('.profile__delete').addEventListener('click', handleDelete);
  //нажатие кнопки удалить вызывается ф-ция удаления блока
+ element.querySelector('.element__button').addEventListener('click', handleLike);
+ element.querySelector('.element__img').addEventListener('click', openClickImgPopup);/*ф-ция добавить класс для поп открытия картинки*/
 }
