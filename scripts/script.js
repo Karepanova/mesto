@@ -12,9 +12,13 @@ const subtitle = document.querySelector('.profile__subtitle');// Выберит�
 
 const addButton = content.querySelector('.profile__add-button');
 const formEmpty = document.querySelector('.form-empty');
+const elementImg = document.querySelector('.element__img');
+
 const formEmptyCloseIcon = formEmpty.querySelector('.form-empty__close-icon');
 const profileNaming = document.querySelector('.form-empty__info_profile_naming'); //из импута
 const profileLink = document.querySelector('.form-empty__info_profile_link');// из импута
+
+const imagePopup = document.querySelector('.image-popup'); //попап картинка
 
 function openClick() {
  popup.classList.add('popup_opened'); /*добавить модификатор для "редактировать профиль"*/
@@ -28,6 +32,12 @@ function openClickFormEmpty() {
  profileNaming.value = ''; //чистит импут
  profileLink.value = ''; //чистит импут
 }
+
+/*
+function openClickImgPopup() {
+ imagePopup.classList.add('popup_opened'); /!*добавить модификатор открытия для фото попап*!/
+}
+*/
 
 function closeClick() {
  popup.classList.remove('popup_opened'); /*удалить модификатор для "редактировать профиль"*/
@@ -58,6 +68,8 @@ function formSubmitHandlerForm(evt) {
 
 editButton.addEventListener('click', openClick); /*ф-ция добавить класс*/
 addButton.addEventListener('click', openClickFormEmpty); /*ф-ция добавить класс для формы с фото*/
+/*elementImg.addEventListener('click', openClickImgPopup);*/ /*ф-ция добавить класс для поп открытия картинки*/
+
 popupCloseIcon.addEventListener('click', closeClick); /*ф-ция удалить класс*/
 formEmptyCloseIcon.addEventListener('click', closeClickFormEmpty); /*ф-ция удалить класс для формы с фото*/
 formElement.addEventListener('submit', formSubmitHandler); /*ф-ция отправки формы*/
@@ -121,9 +133,3 @@ function setEventListeners(element) {
  element.querySelector('.profile__delete').addEventListener('click', handleDelete)
  //нажатие кнопки удалить вызывается ф-ция удаления блока
 }
-
-
-//при нажатии "Создать" - создать новую карточку сверху
-//в название сохранить название карточки
-//в ссылка на картинку сохранить фото картинки
-//попап автоматически закрыть
