@@ -12,11 +12,3 @@
     opacity: 0;
     transition: visibility 0.3s, opacity 0.3s linear;
 }
-
-.form-add-card__info_profile_naming::placeholder {
-    color: #C4C4C4;
-}
-
-.form-add-card__info_profile_link::placeholder {
-    color: #C4C4C4;
-}
