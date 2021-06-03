@@ -7,13 +7,10 @@
     background-position: center;
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     background-size: cover;
     padding: 0;
-}
-
-.image-popup__close-icon {
     cursor: pointer;
     opacity: 0.6;
 }
