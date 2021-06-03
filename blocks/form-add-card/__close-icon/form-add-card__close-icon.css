@@ -1,4 +1,4 @@
-.form-empty__close-icon {
+.form-add-card__close-icon {
     background-image: url(../../../images/close-icon.svg);
     border: none;
     color: #FFFFFF;
@@ -14,14 +14,14 @@
 }
 
 @media all and (max-width: 950px) {
-    .form-empty__close-icon {
+    .form-add-card__close-icon {
         width: 26px;
         right: 1px;
         height: 37px;
     }
 }
 
-.form-empty__close-icon:hover {
+.form-add-card__close-icon:hover {
     cursor: pointer;
     opacity: 0.6;
 }

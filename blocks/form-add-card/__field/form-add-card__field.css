@@ -1,4 +1,4 @@
-.form-empty__field {
+.form-add-card__field {
     width: 100%;
     border: none;
     padding-bottom: 13px;
@@ -12,6 +12,6 @@
     /*color: #C4C4C4;*/
 }
 
-.form-empty__field:last-of-type {
+.form-add-card__field:last-of-type {
     margin-bottom: 0;
 }

@@ -1,4 +1,4 @@
-.form-empty__title {
+.form-add-card__title {
     font-family: 'inter', Arial, sans-serif;
     font-weight: 900;
     font-size: 24px;
@@ -7,7 +7,7 @@
 }
 
 @media all and (max-width: 630px) {
-    .form-empty__title {
+    .form-add-card__title {
         font-size: 20px;
         line-height: 20px;
     }

@@ -1,4 +1,4 @@
-.form-empty__container {
+.form-add-card__container {
     position: relative;
     background-color: #FFFFFF;
     max-width: 430px;
@@ -13,7 +13,7 @@
 }
 
 @media all and (max-width: 630px) {
-    .form-empty__container {
+    .form-add-card__container {
         min-width: 274px;
         padding: 21px 17px;
         margin: 49% auto;

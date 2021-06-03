@@ -1,4 +1,4 @@
-.form-empty {
+.form-add-card {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -10,13 +10,13 @@
     align-items: center;
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0.5s, opacity 0.5s linear;
+    transition: visibility 0.3s, opacity 0.3s linear;
 }
 
-.form-empty__info_profile_naming::placeholder {
+.form-add-card__info_profile_naming::placeholder {
     color: #C4C4C4;
 }
 
-.form-empty__info_profile_link::placeholder {
+.form-add-card__info_profile_link::placeholder {
     color: #C4C4C4;
 }
