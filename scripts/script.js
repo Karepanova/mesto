@@ -20,129 +20,149 @@ const imagePopupTitle = document.querySelector('.image-popup__title');//поле
 const elementsList = document.querySelector('.elements'); //блок в котором будут клонируемые карточки
 const elementsTemplate = document.querySelector('#elements-template').content;
 const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
+ {
+  name: 'Архыз',
+  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+ },
+ {
+  name: 'Челябинская область',
+  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+ },
+ {
+  name: 'Иваново',
+  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+ },
+ {
+  name: 'Камчатка',
+  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+ },
+ {
+  name: 'Холмогорский район',
+  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+ },
+ {
+  name: 'Байкал',
+  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+ }
 ]; // массив
 
-/*добавляет класс отркрытия для "редактировать профиль"*/
-function openClick() {
-    popup.classList.add('popup_opened');
-    /*при открытии, подтягивает данные со страницы в форму */
-    popupInfoName.value = title.textContent;
-    popupInfoAbout.value = subtitle.textContent;
+function openModal(modal) {
+ // функционал добавления класса к элементу modal
+ modal.classList.add('popup_opened');
 }
 
-/*добавляет класс отркрытия для формы "добавить фото"*/
-function openClickFormAddCard() {
-    formAddCard.classList.add('popup_opened');
-    profileNaming.value = ''; //чистит инпут
-    profileLink.value = ''; //чистит инпут
+/*открывает форму редактирования профиля*/
+function openProfileForm() {
+ openModal(popup); //вызов функции подставления класса открытия попапа
+ /*при открытии, подтягивает данные со страницы в форму */
+ popupInfoName.value = title.textContent;
+ popupInfoAbout.value = subtitle.textContent;
 }
 
-/*добавляет класс отркрытия для попап фото*/
-function openClickImgPopup(event) {
-    imagePopup.classList.add('popup_opened'); //добавляет класс для открытия
-    imagePopupImg.src = event.target.src;  //записывает ссылку
-    let name = event.target.closest('.element').querySelector('.element__text').textContent; //ищем родителя, от родителя ищем текст
-    imagePopupImg.alt = name; //записывает альт
-    imagePopupTitle.textContent = name; //записывает текст
+/*открывает форму "добавить фото"*/
+function openFormAddCard() {
+ openModal(formAddCard);//вызов функции подставления класса открытия попапа
+ profileNaming.value = ''; //чистит инпут
+ profileLink.value = ''; //чистит инпут
+}
+
+/*открывает изображение*/
+function openImgPopup(event) {
+ openModal(imagePopup);//вызов функции подставления класса открытия попапа
+ imagePopupImg.src = event.target.src;  //записывает ссылку
+ let name = event.target.closest('.element').querySelector('.element__text').textContent; //ищем родителя, от родителя ищем текст
+ imagePopupImg.alt = name; //записывает альт
+ imagePopupTitle.textContent = name; //записывает текст
+}
+
+
+function closeModal(modal) {
+ // функционал удаления класса элемента modal
+ modal.classList.remove('popup_opened');
 }
 
 /*удаляет класс для "редактировать профиль"*/
-function closeClick() {
-    popup.classList.remove('popup_opened');
+function closeProfileForm() {
+ closeModal(popup); //вызов функции удаления класса попап для закрытия
 }
 
 /*удаляет класс для формы с добавлением фото*/
-function closeClickFormAddCard() {
-    formAddCard.classList.remove('popup_opened');
+function closeFormAddCard() {
+ closeModal(formAddCard);//вызов функции удаления класса попап для закрытия
 }
 
 /*удаляет класс для фото попап*/
-function closeClickImgPopup() {
-    imagePopup.classList.remove('popup_opened');
+function closeImgPopup() {
+ closeModal(imagePopup);//вызов функции удаления класса попап для закрытия
 }
 
 /*сохраняет введенные в профиль данные*/
-function formSubmitHandler(evt) {
-    evt.preventDefault();//не отправлять форму
-    title.textContent = popupInfoName.value;// вставка в профиль на странице из формы
-    subtitle.textContent = popupInfoAbout.value;// вставка в профиль на странице из формы
-    closeClick();
+function submitEditForm(evt) {
+ evt.preventDefault();//не отправлять форму
+ title.textContent = popupInfoName.value;// вставка в профиль на странице из формы
+ subtitle.textContent = popupInfoAbout.value;// вставка в профиль на странице из формы
+ closeProfileForm();
 }
 
-function formSubmitHandlerForm(evt) {
-    evt.preventDefault();//не отправлять форму
-    const element = {
-        name: profileNaming.value,
-        link: profileLink.value
-    };
-    renderItem(element);
-    closeClickFormAddCard();
+function submitCardForm(evt) {
+ evt.preventDefault();//не отправлять форму
+ const element = {
+  name: profileNaming.value,
+  link: profileLink.value
+ };
+ const card = renderCard(element);
+ createCard(card);
+ closeFormAddCard();
 }
 
 /*создает из шаблона карточки с данными из массива*/
-function renderItem(element) {
-    const initialElement = elementsTemplate.cloneNode(true); /*клонирует карточку*/
-    initialElement.querySelector('.element__text').textContent = element.name; /*тянет в клон текст*/
-    initialElement.querySelector('.element__img').src = element.link; /*тянет в клон ссылку*/
-    initialElement.querySelector('.element__img').alt = element.name;
-    setEventListeners(initialElement); //вызфвает ф-цию с обработчиками событий
-    elementsList.prepend(initialElement); //вставляет клонируемые карточки в блок в начало
+function renderCard(element) {
+ const initialElement = elementsTemplate.cloneNode(true); /*клонирует карточку*/
+ initialElement.querySelector('.element__text').textContent = element.name; /*тянет в клон текст*/
+ initialElement.querySelector('.element__img').src = element.link; /*тянет в клон ссылку*/
+ initialElement.querySelector('.element__img').alt = element.name;
+ setCardEventListeners(initialElement); //вызфвает ф-цию с обработчиками событий
+ return initialElement;
+ //elementsList.prepend(initialElement); //вставляет клонируемые карточки в блок в начало
+}
+
+function createCard(card) {
+ elementsList.prepend(card);
 }
 
 /*обрабатывает создание всех карточек из массива*/
 (function renderItems() {
-    initialCards.forEach(renderItem); //применяется к каждому элементу массива
+ initialCards.forEach(function (element){
+  const card = renderCard(element);
+  createCard(card);
+ }); //применяется к каждому элементу массива
 })() /*самовызывающаяся функция*/
 
 /*удаляет карточку*/
 function handleDelete(event) {
-    event.target.closest('.element').remove();
+ event.target.closest('.element').remove();
 }
 
 /*подставляет класс с фото черный лайк*/
 function handleLike(event) {
-    event.target.classList.toggle('element__button-active');
+ event.target.classList.toggle('element__button-active');
 }
 
 /*назначение событий*/
-function setEventListeners(element) {
-    /*нажатие корзинка удалить вызывается ф-ция удаления блока*/
-    element.querySelector('.profile__delete').addEventListener('click', handleDelete);
-    /*нажатие сердечка вызывает функцию поставления класса*/
-    element.querySelector('.element__button').addEventListener('click', handleLike);
-    /*ф-ция добавить класс для поп открытия картинки*/
-    element.querySelector('.element__img').addEventListener('click', openClickImgPopup);
+function setCardEventListeners(element) {
+ /*нажатие корзинка удалить вызывается ф-ция удаления блока*/
+ element.querySelector('.profile__delete').addEventListener('click', handleDelete);
+ /*нажатие сердечка вызывает функцию поставления класса*/
+ element.querySelector('.element__button').addEventListener('click', handleLike);
+ /*ф-ция добавить класс для поп открытия картинки*/
+ element.querySelector('.element__img').addEventListener('click', openImgPopup);
 }
 
 /*обработчик событий*/
-editButton.addEventListener('click', openClick); /*ф-ция добавить класс*/
-addButton.addEventListener('click', openClickFormAddCard); /*ф-ция добавить класс для формы с фото*/
-popupCloseIcon.addEventListener('click', closeClick); /*ф-ция удалить класс*/
-formAddCardCloseIcon.addEventListener('click', closeClickFormAddCard); /*ф-ция удалить класс для формы с фото*/
-imagePopupCloseIcon.addEventListener('click', closeClickImgPopup); /*ф-ция удалить класс для формы с фото*/
-formElement.addEventListener('submit', formSubmitHandler); /*ф-ция отправки формы*/
-formAddCardData.addEventListener('submit', formSubmitHandlerForm); /*ф-ция отправки формы*/
+editButton.addEventListener('click', openProfileForm); /*ф-ция добавить класс*/
+addButton.addEventListener('click', openFormAddCard); /*ф-ция добавить класс для формы с фото*/
+popupCloseIcon.addEventListener('click', closeProfileForm); /*ф-ция удалить класс*/
+formAddCardCloseIcon.addEventListener('click', closeFormAddCard); /*ф-ция удалить класс для формы с фото*/
+imagePopupCloseIcon.addEventListener('click', closeImgPopup); /*ф-ция удалить класс для формы с фото*/
+formElement.addEventListener('submit', submitEditForm); /*ф-ция отправки формы*/
+formAddCardData.addEventListener('submit', submitCardForm); /*ф-ция отправки формы*/
