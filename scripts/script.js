@@ -46,8 +46,9 @@ const initialCards = [
  }
 ]; // массив
 
+// функционал добавления класса к элементу modal
 function openModal(modal) {
- // функционал добавления класса к элементу modal
+ document.addEventListener('keydown', handleEscUp); //
  modal.classList.add('popup_opened');
 }
 
@@ -78,8 +79,17 @@ function openImgPopup(event) {
 
 function closeModal(modal) {
  // функционал удаления класса элемента modal
+ document.removeEventListener('keydown', handleEscUp);
  modal.classList.remove('popup_opened');
 }
+
+const handleEscUp = (event) => {
+ event.preventDefault();
+ const activePopup = document.querySelector('.popup_opened');
+ if (event.keyCode === 27) {
+  closeModal(activePopup);
+ };
+};
 
 /*удаляет класс для "редактировать профиль"*/
 function closeProfileForm() {
@@ -110,6 +120,7 @@ function submitCardForm(evt) {
   name: profileNaming.value,
   link: profileLink.value
  };
+
  const card = renderCard(element);
  createCard(card);
  closeFormAddCard();
@@ -132,7 +143,7 @@ function createCard(card) {
 
 /*обрабатывает создание всех карточек из массива*/
 (function renderItems() {
- initialCards.forEach(function (element){
+ initialCards.forEach(function (element) {
   const card = renderCard(element);
   createCard(card);
  }); //применяется к каждому элементу массива
@@ -166,3 +177,26 @@ formAddCardCloseIcon.addEventListener('click', closeFormAddCard); /*ф-ция у
 imagePopupCloseIcon.addEventListener('click', closeImgPopup); /*ф-ция удалить класс для формы с фото*/
 formElement.addEventListener('submit', submitEditForm); /*ф-ция отправки формы*/
 formAddCardData.addEventListener('submit', submitCardForm); /*ф-ция отправки формы*/
+//Закрытие формы по клику на оверлей
+popup.addEventListener('click', (event) => {
+ //проверка - если клик по оверлею или по крестику, то закрывать попап
+ if (event.target.classList.contains('popup') || event.target.classList.contains('image-popup__close-icon')) {
+  closeProfileForm(popup);
+ }
+});
+//Закрытие формы по клику на оверлей
+formAddCard.addEventListener('click', (event) => {
+ //проверка - если клик по оверлею или по крестику, то закрывать попап
+ if (event.target.classList.contains('form-add-card') || event.target.classList.contains('form-add-card__close-icon')) {
+  closeFormAddCard(popup);
+ }
+});
+
+//Закрытие формы по клику на оверлей
+imagePopup.addEventListener('click', (event) => {
+ //проверка - если клик по оверлею или по крестику, то закрывать попап
+ if (event.target.classList.contains('image-popup') || event.target.classList.contains('image-popup__close-icon')) {
+  closeImgPopup(imagePopup);
+ }
+});
+
