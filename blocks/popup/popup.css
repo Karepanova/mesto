@@ -12,3 +12,12 @@
   opacity: 0;
   transition: visibility 0.3s, opacity 0.3s linear;
 }
+
+.error {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+}

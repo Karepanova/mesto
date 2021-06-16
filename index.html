@@ -43,13 +43,16 @@
   <div class="popup__container">
     <button class="popup__close-icon" type="button"><!--кнопка закрыть попап--></button>
     <h2 class="popup__title">Редактировать профиль</h2>
-    <form class="popup__data" name="form">
-      <input class="popup__info popup__info_profile_name" name="firstname" placeholder="Имя" required type="text"
-             value="Жак-Ив Кусто">
-      <input class="popup__info popup__info_profile_about" name="describe" placeholder="О себе" required
-             type="text"
-             value="Исследователь океана">
-      <button class="popup__button" type="submit">Сохранить<!--кнопка--></button>
+    <form class="popup__data" name="form" novalidate>
+      <input id="popup-name" class="popup__info popup__info_profile_name" name="firstname" placeholder="Имя" required type="text"
+             value="Жак-Ив Кусто" minlength="2" maxlength="40">
+      <span id="popup-name-error" class="error"></span>
+
+      <input id="popup-text" class="popup__info popup__info_profile_about" name="describe" placeholder="О себе" required
+             type="text" value="Исследователь океана" minlength="2" maxlength="200">
+      <span id="popup-text-error" class="error"></span>
+
+      <button class="popup__button popup__button_invalid" type="submit">Сохранить<!--кнопка--></button>
     </form>
   </div>
 </div>
@@ -59,13 +62,19 @@
   <div class="form-add-card__container">
     <button class="form-add-card__close-icon" type="button"><!--кнопка закрыть попап--></button>
     <h2 class="form-add-card__title">Новое место</h2>
-    <form class="form-add-card__data" name="form">
-      <input class="form-add-card__field form-add-card__info-profile-naming" name="naming" placeholder="Название" required
-             type="text" value="">
-      <input class="form-add-card__field form-add-card__info-profile-link" name="link" placeholder="Ссылка на картинку"
+
+    <form class="form-add-card__data" name="form" novalidate>
+      <input id="name-card" class="form-add-card__field form-add-card__info-profile-naming" name="naming" placeholder="Название" required
+             type="text" value="" minlength="2" maxlength="30">
+      <span id="name-card-error" class="error"></span>
+
+      <input id="link" class="form-add-card__field form-add-card__info-profile-link" name="link" placeholder="Ссылка на картинку"
              required type="url" value="">
-      <button class="form-add-card__button" type="submit">Создать<!--кнопка--></button>
+      <span id="link-error" class="error"></span>
+
+      <button disabled class="form-add-card__button form-add-card__button_invalid" type="submit">Создать<!--кнопка--></button>
     </form>
+
   </div>
 </div>
 
@@ -92,6 +101,6 @@
 </template>
 
 <script src="scripts/script.js"></script>
-
+<script src="scripts/validate.js"></script>
 </body>
 </html>
