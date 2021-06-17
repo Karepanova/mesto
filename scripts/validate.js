@@ -1,8 +1,10 @@
 //включает валидацию на форме
-function enableValidation(config) {
- const form = document.querySelector(config.form); //класс+нейм
- form.addEventListener('submit', (event) => handleFormSubmit(event, config)); //слушатель на сабмит
- form.addEventListener('input', (event) => handleFormInput(event, config)); //проверяет что вводим
+function enableValidation(configs) {
+ configs.forEach(function (config) {
+  const form = document.querySelector(config.form); //класс+нейм
+  form.addEventListener('submit', (event) => handleFormSubmit(event, config)); //слушатель на сабмит
+  form.addEventListener('input', (event) => handleFormInput(event, config)); //проверяет что вводим
+ })
 }
 
 function handleFormSubmit(event, config) {
@@ -43,6 +45,19 @@ function setSubmitButtonState(form, config) {
  }
 };
 
+enableValidation([
+ {
+  form: `.form-add-card__data`,
+  button: '.form-add-card__button',
+  buttonInvalid: 'form-add-card__button_invalid'
+ },
+ {
+  form: `.popup__data`,
+  button: '.popup__button',
+  buttonInvalid: 'popup__button_invalid'
+ }
+])
+/*
 enableValidation({
  form: `.form-add-card__data`,
  button: '.form-add-card__button',
@@ -53,4 +68,4 @@ enableValidation({
  form: `.popup__data`,
  button: '.popup__button',
  buttonInvalid: 'popup__button_invalid'
-});
+});*/

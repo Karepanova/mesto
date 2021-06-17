@@ -84,7 +84,6 @@ function closeModal(modal) {
 }
 
 const handleEscUp = (event) => {
- event.preventDefault();
  const activePopup = document.querySelector('.popup_opened');
  if (event.keyCode === 27) {
   closeModal(activePopup);
