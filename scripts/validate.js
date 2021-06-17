@@ -22,14 +22,19 @@ function handleFormInput(event, config) {
  const form = event.currentTarget; // то на что мы повесили событие
  // показываем тексты ошибок пользователям
  setFieldError(input);
+ setInputError(input, config);
  // активируем или деактивируем кнопку
  setSubmitButtonState(form, config);
 }
 
+
+
 function setFieldError(input) {
  const span = document.querySelector(`#${input.id}-error`);
  span.textContent = input.validationMessage;
+
 }
+
 
 //добавляет / удаляет класс у кнопки
 function setSubmitButtonState(form, config) {
@@ -45,27 +50,27 @@ function setSubmitButtonState(form, config) {
  }
 };
 
+//добавляем класс инпуту
+function setInputError(input, config) {
+ if (input.validity.valid){
+  input.classList.remove(config.inputError);
+ } else {
+  input.classList.add(config.inputError);
+ }
+}
+
 enableValidation([
  {
   form: `.form-add-card__data`,
   button: '.form-add-card__button',
-  buttonInvalid: 'form-add-card__button_invalid'
+  buttonInvalid: 'form-add-card__button_invalid',
+  inputError: 'form-add-card__field_error'
  },
  {
   form: `.popup__data`,
   button: '.popup__button',
-  buttonInvalid: 'popup__button_invalid'
+  buttonInvalid: 'popup__button_invalid',
+  inputError: 'popup__info_error'
  }
 ])
-/*
-enableValidation({
- form: `.form-add-card__data`,
- button: '.form-add-card__button',
- buttonInvalid: 'form-add-card__button_invalid'
-});
 
-enableValidation({
- form: `.popup__data`,
- button: '.popup__button',
- buttonInvalid: 'popup__button_invalid'
-});*/

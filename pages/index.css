@@ -32,6 +32,8 @@
 @import url(../blocks/popup/__button/_invalid/popup__button_invalid.css);
 @import url(../blocks/popup/__data/popup__data.css);
 @import url(../blocks/popup/__error/popup__error.css);
+@import url(../blocks/popup/__info/_error/popup__info_error.css);
+
 @import url(../blocks/form-add-card/form-add-card.css);
 @import url(../blocks/form-add-card/__button/form-add-card__button.css);
 @import url(../blocks/form-add-card/__button/_invalid/form-add-card__button_invalid.css);
@@ -41,6 +43,9 @@
 @import url(../blocks/form-add-card/__field/form-add-card__field.css);
 @import url(../blocks/form-add-card/__title/form-add-card__title.css);
 @import url(../blocks/form-add-card/__error/form-add-card__error.css);
+@import url(../blocks/form-add-card/__field/_error/form-add-card__field_error.css);
+
+
 @import url(../blocks/image-popup/image-popup.css);
 @import url(../blocks/image-popup/__close-icon/image-popup__close-icon.css);
 @import url(../blocks/image-popup/__title/image-popup__title.css);
