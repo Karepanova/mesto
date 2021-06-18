@@ -1,50 +1,25 @@
 const content = document.querySelector('.content');
 const editButton = content.querySelector('.profile__edit-button');
-const popup = document.querySelector('.popup');
-const popupCloseIcon = popup.querySelector('.popup__close-icon');
-const formElement = document.querySelector('.popup__data');
-const formAddCardData = document.querySelector('.form-add-card__data');
-const popupInfoName = formElement.querySelector('.popup__info_profile_name');
-const popupInfoAbout = formElement.querySelector('.popup__info_profile_about');
+const popupEditProfile = document.querySelector('.popup-edit-profile');
+const popupCloseProfile = popupEditProfile.querySelector('.popup__close-profile');
+const formEditProfile = document.querySelector('.popup__data[name=form1]');
+const formNewCard = document.querySelector('.popup__data[name=form2]');
+const popupInfoName = formEditProfile.querySelector('.popup__info_profile_name');
+const popupInfoAbout = formEditProfile.querySelector('.popup__info_profile_about');
 const title = document.querySelector('.profile__title');// Выберите элементы, куда должны быть вставлены значения полей
 const subtitle = document.querySelector('.profile__subtitle');// Выберите элементы, куда должны быть вставлены значения полей
 const addButton = content.querySelector('.profile__add-button');
-const formAddCard = document.querySelector('.form-add-card');
-const formAddCardCloseIcon = formAddCard.querySelector('.form-add-card__close-icon');
+const popupNewCard = document.querySelector('.popup-new-card');
+const popupCloseNewCard = popupNewCard.querySelector('.popup__close-new-card');
 const profileNaming = document.querySelector('.form-add-card__info-profile-naming'); //из инпута
 const profileLink = document.querySelector('.form-add-card__info-profile-link');// из инпута
 const imagePopup = document.querySelector('.image-popup'); //попап картинка
-const imagePopupCloseIcon = document.querySelector('.image-popup__close-icon');//закрыть попап картинку
+const imagePopupCloseImage = imagePopup.querySelector('.image-popup__close-image');//закрыть попап картинку
 const imagePopupImg = document.querySelector('.image-popup__img'); //поле ссылка попап фото
 const imagePopupTitle = document.querySelector('.image-popup__title');//поле текст попап фото
 const elementsList = document.querySelector('.elements'); //блок в котором будут клонируемые карточки
 const elementsTemplate = document.querySelector('#elements-template').content;
-const initialCards = [
- {
-  name: 'Архыз',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
- },
- {
-  name: 'Челябинская область',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
- },
- {
-  name: 'Иваново',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
- },
- {
-  name: 'Камчатка',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
- },
- {
-  name: 'Холмогорский район',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
- },
- {
-  name: 'Байкал',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
- }
-]; // массив
+const escKey = 27;
 
 // функционал добавления класса к элементу modal
 function openModal(modal) {
@@ -54,7 +29,7 @@ function openModal(modal) {
 
 /*открывает форму редактирования профиля*/
 function openProfileForm() {
- openModal(popup); //вызов функции подставления класса открытия попапа
+ openModal(popupEditProfile); //вызов функции подставления класса открытия попапа
  /*при открытии, подтягивает данные со страницы в форму */
  popupInfoName.value = title.textContent;
  popupInfoAbout.value = subtitle.textContent;
@@ -62,16 +37,20 @@ function openProfileForm() {
 
 /*открывает форму "добавить фото"*/
 function openFormAddCard() {
- openModal(formAddCard);//вызов функции подставления класса открытия попапа
- profileNaming.value = ''; //чистит инпут
- profileLink.value = ''; //чистит инпут
+ openModal(popupNewCard);//вызов функции подставления класса открытия попапа
+
+ formNewCard.reset();
+
+ // profileNaming.value = ''; //чистит инпут
+ // profileLink.value = ''; //чистит инпут
 }
 
 /*открывает изображение*/
 function openImgPopup(event) {
  openModal(imagePopup);//вызов функции подставления класса открытия попапа
  imagePopupImg.src = event.target.src;  //записывает ссылку
- let name = event.target.closest('.element').querySelector('.element__text').textContent; //ищем родителя, от родителя ищем текст
+ //ищем родителя, от родителя ищем текст
+ const name = event.target.closest('.element').querySelector('.element__text').textContent;
  imagePopupImg.alt = name; //записывает альт
  imagePopupTitle.textContent = name; //записывает текст
 }
@@ -84,33 +63,37 @@ function closeModal(modal) {
 }
 
 const handleEscUp = (event) => {
- const activePopup = document.querySelector('.popup_opened');
- if (event.keyCode === 27) {
+ if (event.keyCode === escKey) {
+  const activePopup = document.querySelector('.popup_opened');
   closeModal(activePopup);
- };
+ }
 };
 
 /*удаляет класс для "редактировать профиль"*/
+/*
 function closeProfileForm() {
- closeModal(popup); //вызов функции удаления класса попап для закрытия
+ closeModal(popupEditProfile); //вызов функции удаления класса попап для закрытия
 }
+*/
 
 /*удаляет класс для формы с добавлением фото*/
+/*
 function closeFormAddCard() {
- closeModal(formAddCard);//вызов функции удаления класса попап для закрытия
+ closeModal(popupNewCard);//вызов функции удаления класса попап для закрытия
 }
+*/
 
 /*удаляет класс для фото попап*/
-function closeImgPopup() {
+/*function closeImgPopup() {
  closeModal(imagePopup);//вызов функции удаления класса попап для закрытия
-}
+}*/
 
 /*сохраняет введенные в профиль данные*/
 function submitEditForm(evt) {
  evt.preventDefault();//не отправлять форму
  title.textContent = popupInfoName.value;// вставка в профиль на странице из формы
  subtitle.textContent = popupInfoAbout.value;// вставка в профиль на странице из формы
- closeProfileForm();
+ closeModal(popupEditProfile); //вызов функции удаления класса попап для закрытия;
 }
 
 function submitCardForm(evt) {
@@ -122,15 +105,16 @@ function submitCardForm(evt) {
 
  const card = renderCard(element);
  createCard(card);
- closeFormAddCard();
+ closeModal(popupNewCard);
 }
 
 /*создает из шаблона карточки с данными из массива*/
 function renderCard(element) {
  const initialElement = elementsTemplate.cloneNode(true); /*клонирует карточку*/
  initialElement.querySelector('.element__text').textContent = element.name; /*тянет в клон текст*/
- initialElement.querySelector('.element__img').src = element.link; /*тянет в клон ссылку*/
- initialElement.querySelector('.element__img').alt = element.name;
+ const elementImg = initialElement.querySelector('.element__img');
+ elementImg.src = element.link; /*тянет в клон ссылку*/
+ elementImg.alt = element.name;
  setCardEventListeners(initialElement); //вызфвает ф-цию с обработчиками событий
  return initialElement;
  //elementsList.prepend(initialElement); //вставляет клонируемые карточки в блок в начало
@@ -171,31 +155,31 @@ function setCardEventListeners(element) {
 /*обработчик событий*/
 editButton.addEventListener('click', openProfileForm); /*ф-ция добавить класс*/
 addButton.addEventListener('click', openFormAddCard); /*ф-ция добавить класс для формы с фото*/
-popupCloseIcon.addEventListener('click', closeProfileForm); /*ф-ция удалить класс*/
-formAddCardCloseIcon.addEventListener('click', closeFormAddCard); /*ф-ция удалить класс для формы с фото*/
-imagePopupCloseIcon.addEventListener('click', closeImgPopup); /*ф-ция удалить класс для формы с фото*/
-formElement.addEventListener('submit', submitEditForm); /*ф-ция отправки формы*/
-formAddCardData.addEventListener('submit', submitCardForm); /*ф-ция отправки формы*/
+popupCloseProfile.addEventListener('click', () => closeModal(popupEditProfile)); /*ф-ция удалить класс*/
+popupCloseNewCard.addEventListener('click', () => closeModal(popupNewCard)); /*ф-ция удалить класс для формы с фото*/
+imagePopupCloseImage.addEventListener('click', () => closeModal(imagePopup)); /*ф-ция удалить класс для формы с фото*/
+formEditProfile.addEventListener('submit', submitEditForm); /*ф-ция отправки формы*/
+formNewCard.addEventListener('submit', submitCardForm); /*ф-ция отправки формы*/
 //Закрытие формы по клику на оверлей
-popup.addEventListener('click', (event) => {
+popupEditProfile.addEventListener('mousedown', (event) => {
  //проверка - если клик по оверлею или по крестику, то закрывать попап
- if (event.target.classList.contains('popup') || event.target.classList.contains('image-popup__close-icon')) {
-  closeProfileForm(popup);
+ if (event.target.classList.contains('popup-edit-profile') || event.target.classList.contains('popup__close-profile')) {
+  closeModal(popupEditProfile);
  }
 });
 //Закрытие формы по клику на оверлей
-formAddCard.addEventListener('click', (event) => {
+popupNewCard.addEventListener('mousedown', (event) => {
  //проверка - если клик по оверлею или по крестику, то закрывать попап
- if (event.target.classList.contains('form-add-card') || event.target.classList.contains('form-add-card__close-icon')) {
-  closeFormAddCard(popup);
+ if (event.target.classList.contains('popup-new-card') || event.target.classList.contains('popup__close-new-card')) {
+  closeModal(popupNewCard);
  }
 });
 
 //Закрытие формы по клику на оверлей
-imagePopup.addEventListener('click', (event) => {
+imagePopup.addEventListener('mousedown', (event) => {
  //проверка - если клик по оверлею или по крестику, то закрывать попап
- if (event.target.classList.contains('image-popup') || event.target.classList.contains('image-popup__close-icon')) {
-  closeImgPopup(imagePopup);
+ if (event.target.classList.contains('image-popup') || event.target.classList.contains('image-popup__close-image')) {
+  closeModal(imagePopup);
  }
 });
 

@@ -1,7 +1,7 @@
 //включает валидацию на форме
-function enableValidation(configs) {
- configs.forEach(function (config) {
-  const form = document.querySelector(config.form); //класс+нейм
+function enableValidation(config) {
+ const forms = document.querySelectorAll(config.form); //класс+нейм
+ forms.forEach(function (form) {
   form.addEventListener('submit', (event) => handleFormSubmit(event, config)); //слушатель на сабмит
   form.addEventListener('input', (event) => handleFormInput(event, config)); //проверяет что вводим
  })
@@ -28,7 +28,6 @@ function handleFormInput(event, config) {
 }
 
 
-
 function setFieldError(input) {
  const span = document.querySelector(`#${input.id}-error`);
  span.textContent = input.validationMessage;
@@ -52,25 +51,19 @@ function setSubmitButtonState(form, config) {
 
 //добавляем класс инпуту
 function setInputError(input, config) {
- if (input.validity.valid){
+ if (input.validity.valid) {
   input.classList.remove(config.inputError);
  } else {
   input.classList.add(config.inputError);
  }
 }
 
-enableValidation([
- {
-  form: `.form-add-card__data`,
-  button: '.form-add-card__button',
-  buttonInvalid: 'form-add-card__button_invalid',
-  inputError: 'form-add-card__field_error'
- },
+enableValidation(
  {
   form: `.popup__data`,
   button: '.popup__button',
   buttonInvalid: 'popup__button_invalid',
   inputError: 'popup__info_error'
  }
-])
+)
 

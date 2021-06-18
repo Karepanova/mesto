@@ -39,30 +39,54 @@
 </div>
 
 
-<div class="popup">
+<div class="popup popup-edit-profile">
   <div class="popup__container">
-    <button class="popup__close-icon" type="button"><!--кнопка закрыть попап--></button>
+    <button class="popup__close-icon popup__close-profile" type="button"><!--кнопка закрыть попап--></button>
     <h2 class="popup__title">Редактировать профиль</h2>
-    <form class="popup__data" name="form" novalidate>
+    <form class="popup__data" name="form1" novalidate>
       <input id="popup-name" class="popup__info popup__info_profile_name" name="firstname" placeholder="Имя" required type="text"
              value="Жак-Ив Кусто" minlength="2" maxlength="40">
       <span id="popup-name-error" class="popup__error"></span>
-
       <input id="popup-text" class="popup__info popup__info_profile_about" name="describe" placeholder="О себе" required
              type="text" value="Исследователь океана" minlength="2" maxlength="200">
       <span id="popup-text-error" class="popup__error"></span>
-
       <button class="popup__button" type="submit">Сохранить<!--кнопка--></button>
     </form>
   </div>
 </div>
 
 
+<div class="popup popup-new-card">
+  <div class="popup__container">
+    <button class="popup__close-icon popup__close-new-card" type="button"><!--кнопка закрыть попап--></button>
+    <h2 class="popup__title">Новое место</h2>
+    <form class="popup__data" name="form2" novalidate>
+      <input id="name-card" class="popup__info form-add-card__info-profile-naming" name="naming" placeholder="Название" required
+             type="text" value="" minlength="2" maxlength="30">
+      <span id="name-card-error" class="popup__error"></span>
+      <input id="link" class="popup__info form-add-card__info-profile-link" name="link" placeholder="Ссылка на картинку"
+             required type="url" value="">
+      <span id="link-error" class="popup__error"></span>
+      <button disabled class="popup__button popup__button_invalid" type="submit">Создать<!--кнопка--></button>
+    </form>
+  </div>
+</div>
+
+
+<div class="popup image-popup">
+  <div class="image-popup__container">
+    <button class="popup__close-icon image-popup__close-image" type="button"><!--кнопка закрыть попап--></button>
+    <img class="image-popup__img" alt="#" src="#">
+    <h2 class="image-popup__title"></h2>
+  </div>
+</div>
+
+
+<!--
 <div class="form-add-card">
   <div class="form-add-card__container">
-    <button class="form-add-card__close-icon" type="button"><!--кнопка закрыть попап--></button>
+    <button class="form-add-card__close-icon" type="button">&lt;!&ndash;кнопка закрыть попап&ndash;&gt;</button>
     <h2 class="form-add-card__title">Новое место</h2>
-
     <form class="form-add-card__data" name="form" novalidate>
       <input id="name-card" class="form-add-card__field form-add-card__info-profile-naming" name="naming" placeholder="Название" required
              type="text" value="" minlength="2" maxlength="30">
@@ -71,20 +95,23 @@
       <input id="link" class="form-add-card__field form-add-card__info-profile-link" name="link" placeholder="Ссылка на картинку"
              required type="url" value="">
       <span id="link-error" class="form-add-card__error"></span>
-
-      <button disabled class="form-add-card__button form-add-card__button_invalid" type="submit">Создать<!--кнопка--></button>
+      <button disabled class="form-add-card__button form-add-card__button_invalid" type="submit">Создать&lt;!&ndash;кнопка&ndash;&gt;</button>
     </form>
-
   </div>
 </div>
+-->
+
+
+<!--
 
 <div class="image-popup">
   <div class="image-popup__container">
-    <button class="image-popup__close-icon" type="button"><!--кнопка закрыть попап--></button>
+    <button class="image-popup__close-icon" type="button">&lt;!&ndash;кнопка закрыть попап&ndash;&gt;</button>
     <img class="image-popup__img" alt="#" src="#">
     <h2 class="image-popup__title"></h2>
   </div>
 </div>
+-->
 
 <template id="elements-template">
   <div class="element">
@@ -100,7 +127,9 @@
   </div>
 </template>
 
+<script src="scripts/initial-сards.js"></script>
 <script src="scripts/script.js"></script>
 <script src="scripts/validate.js"></script>
+
 </body>
 </html>
