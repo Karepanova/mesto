@@ -27,13 +27,10 @@ function handleFormInput(event, config) {
  setSubmitButtonState(form, config);
 }
 
-
 function setFieldError(input) {
  const span = document.querySelector(`#${input.id}-error`);
  span.textContent = input.validationMessage;
-
 }
-
 
 //добавляет / удаляет класс у кнопки
 function setSubmitButtonState(form, config) {
@@ -47,7 +44,7 @@ function setSubmitButtonState(form, config) {
   button.classList.add(config.buttonInvalid);
   button.setAttribute('disabled', 'disabled')
  }
-};
+}
 
 //добавляем класс инпуту
 function setInputError(input, config) {
