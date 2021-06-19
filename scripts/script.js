@@ -11,10 +11,10 @@ const subtitle = document.querySelector('.profile__subtitle');// Выберит�
 const addButton = content.querySelector('.profile__add-button');
 const popupNewCard = document.querySelector('.popup_new-card');
 const popupCloseNewCard = popupNewCard.querySelector('.popup__close-new-card');
-const profileNaming = document.querySelector('.popup_new-card__info-profile-naming'); //из инпута
-const profileLink = document.querySelector('.popup_new-card__info-profile-link');// из инпута
+const popupInfoNaming = document.querySelector('.popup__info_naming'); //из инпута
+const popupInfLink = document.querySelector('.popup__info_link');// из инпута
 const popupImageCard = document.querySelector('.popup_image-card'); //попап картинка
-const imagePopupCloseImage = popupImageCard.querySelector('.image-popup__close-image');//закрыть попап картинку
+const popupCloseImage = popupImageCard.querySelector('.popup__close-image');//закрыть попап картинку
 const popupImg = document.querySelector('.popup__img'); //поле ссылка попап фото
 const popupImgSignature = document.querySelector('.popup__img-signature');//поле текст попап фото
 const elementsList = document.querySelector('.elements'); //блок в котором будут клонируемые карточки
@@ -76,8 +76,8 @@ function submitEditForm(evt) {
 function submitCardForm(evt) {
  evt.preventDefault();//не отправлять форму
  const element = {
-  name: profileNaming.value,
-  link: profileLink.value
+  name: popupInfoNaming.value,
+  link: popupInfLink.value
  };
 
  const card = renderCard(element);
@@ -134,7 +134,7 @@ editButton.addEventListener('click', openProfileForm); /*ф-ция добави�
 addButton.addEventListener('click', openFormAddCard); /*ф-ция добавить класс для формы с фото*/
 popupCloseProfile.addEventListener('click', () => closeModal(popupEditProfile)); /*ф-ция удалить класс*/
 popupCloseNewCard.addEventListener('click', () => closeModal(popupNewCard)); /*ф-ция удалить класс для формы с фото*/
-imagePopupCloseImage.addEventListener('click', () => closeModal(popupImg)); /*ф-ция удалить класс для формы с фото*/
+popupCloseImage.addEventListener('click', () => closeModal(popupImg)); /*ф-ция удалить класс для формы с фото*/
 formEditProfile.addEventListener('submit', submitEditForm); /*ф-ция отправки формы*/
 formNewCard.addEventListener('submit', submitCardForm); /*ф-ция отправки формы*/
 //Закрытие формы по клику на оверлей
@@ -155,7 +155,7 @@ popupNewCard.addEventListener('mousedown', (event) => {
 //Закрытие формы по клику на оверлей
 popupImageCard.addEventListener('mousedown', (event) => {
  //проверка - если клик по оверлею или по крестику, то закрывать попап
- if (event.target.classList.contains('popup_image-card') || event.target.classList.contains('image-popup__close-image')) {
+ if (event.target.classList.contains('popup_image-card') || event.target.classList.contains('popup__close-image')) {
   closeModal(popupImageCard);
  }
 });

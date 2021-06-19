@@ -62,11 +62,11 @@
     <button class="popup__close-icon popup__close-new-card" type="button"><!--кнопка закрыть попап--></button>
     <h2 class="popup__title">Новое место</h2>
     <form class="popup__data" name="form2" novalidate>
-      <input class="popup__info popup_new-card__info-profile-naming" id="name-card" maxlength="30" minlength="2"
+      <input class="popup__info popup__info_naming" id="name-card" maxlength="30" minlength="2"
              name="naming"
              placeholder="Название" required type="text" value="">
       <span class="popup__error" id="name-card-error"></span>
-      <input class="popup__info popup_new-card__info-profile-link" id="link" name="link"
+      <input class="popup__info popup__info_link" id="link" name="link"
              placeholder="Ссылка на картинку"
              required type="url" value="">
       <span class="popup__error" id="link-error"></span>
@@ -77,8 +77,8 @@
 
 
 <div class="popup popup_image-card">
-  <div class="popup_image-container">
-    <button class="popup__close-icon image-popup__close-image" type="button"><!--кнопка закрыть попап--></button>
+  <div class="popup__image-container">
+    <button class="popup__close-icon popup__close-image" type="button"><!--кнопка закрыть попап--></button>
     <img alt="#" class="popup__img" src="#">
     <h2 class="popup__img-signature"></h2>
   </div>
