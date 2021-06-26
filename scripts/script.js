@@ -1,3 +1,86 @@
+//создаёт карточку с текстом и ссылкой на изображение
+class Card {
+
+ constructor(data, cardSelector) {
+  this._link = data.link;
+  this._name = data.name;
+  this._cardSelector = cardSelector;
+  this._escKey = 27;
+ }
+
+ _renderCard = () => {
+  const initialElement = document.querySelector(this._cardSelector).content.cloneNode(true); /*клонирует карточку*/
+  initialElement.querySelector('.element__text').textContent = this._name; /*тянет в клон текст*/
+  const elementImg = initialElement.querySelector('.element__img');
+  elementImg.src = this._link; /*тянет в клон ссылку*/
+  elementImg.alt = this._name;
+  this._setCardEventListeners(initialElement); //вызфвает ф-цию с обработчиками событий
+  return initialElement;
+ }
+
+ /*назначение событий*/
+ _setCardEventListeners = (element) => {
+  /*нажатие корзинка удалить вызывается ф-ция удаления блока*/
+  element.querySelector('.profile__delete').addEventListener('click', this._handleDelete);
+  /*нажатие сердечка вызывает функцию поставления класса*/
+  element.querySelector('.element__button').addEventListener('click', this._handleLike);
+  /*ф-ция добавить класс для поп открытия картинки*/
+  element.querySelector('.element__img').addEventListener('click', this._openImgPopup);
+ }
+
+ /*удаляет карточку*/
+ _handleDelete = (event) => {
+  event.target.closest('.element').remove();
+ }
+
+ _handleLike = (event) => {
+  event.target.classList.toggle('element__button_active');
+ }
+
+ _openImgPopup = (event) => {
+  this._openModal(document.querySelector('.popup_image-card'));//вызов функции подставления класса открытия попапа
+  const popupImg = document.querySelector('.popup__img');
+  popupImg.src = event.target.src;  //записывает ссылку
+  //ищем родителя, от родителя ищем текст
+  const name = event.target.closest('.element').querySelector('.element__text').textContent;
+  popupImg.alt = name; //записывает альт
+  document.querySelector('.popup__img-signature').textContent = name; //записывает текст
+ }
+
+ _openModal = (modal) => {
+  document.addEventListener('keydown', this._handleEscUp);
+  modal.classList.add('popup_opened');
+ }
+
+ _handleEscUp = (event) => {
+  if (event.keyCode === this._escKey) {
+   const activePopup = document.querySelector('.popup_opened');
+   this._closeModal(activePopup);
+  }
+ }
+
+ _closeModal = (modal) => {
+  // функционал удаления класса элемента modal
+  document.removeEventListener('keydown', this._handleEscUp);
+  modal.classList.remove('popup_opened');
+ }
+
+ createCard = () => {
+  const card = this._renderCard();
+  document.querySelector('.elements').prepend(card);
+ }
+
+}
+
+
+
+
+initialCards.forEach(function (element) {
+ const card = new Card(element, '#elements-template');
+ card.createCard();
+});
+
+
 const content = document.querySelector('.content');
 const editButton = content.querySelector('.profile__edit-button');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
@@ -18,7 +101,7 @@ const popupCloseImage = popupImageCard.querySelector('.popup__close-image');//з
 const popupImg = document.querySelector('.popup__img'); //поле ссылка попап фото
 const popupImgSignature = document.querySelector('.popup__img-signature');//поле текст попап фото
 const elementsList = document.querySelector('.elements'); //блок в котором будут клонируемые карточки
-const elementsTemplate = document.querySelector('#elements-template').content;
+const elementsTemplate = document.querySelector('#elements-template').content; //000
 const escKey = 27;
 
 // функционал добавления класса к элементу modal
@@ -42,14 +125,14 @@ function openFormAddCard() {
 }
 
 /*открывает изображение*/
-function openImgPopup(event) {
+/*function openImgPopup(event) {
  openModal(popupImageCard);//вызов функции подставления класса открытия попапа
  popupImg.src = event.target.src;  //записывает ссылку
  //ищем родителя, от родителя ищем текст
  const name = event.target.closest('.element').querySelector('.element__text').textContent;
  popupImg.alt = name; //записывает альт
  popupImgSignature.textContent = name; //записывает текст
-}
+}*/
 
 
 function closeModal(modal) {
@@ -85,49 +168,53 @@ function submitCardForm(evt) {
  closeModal(popupNewCard);
 }
 
-/*создает из шаблона карточки с данными из массива*/
-function renderCard(element) {
- const initialElement = elementsTemplate.cloneNode(true); /*клонирует карточку*/
- initialElement.querySelector('.element__text').textContent = element.name; /*тянет в клон текст*/
+/*создает из шаблона -  карточки с данными из массива*/
+/*function renderCard(element) {
+ const initialElement = elementsTemplate.cloneNode(true); /!*клонирует карточку*!/
+ initialElement.querySelector('.element__text').textContent = element.name; /!*тянет в клон текст*!/
  const elementImg = initialElement.querySelector('.element__img');
- elementImg.src = element.link; /*тянет в клон ссылку*/
+ elementImg.src = element.link; /!*тянет в клон ссылку*!/
  elementImg.alt = element.name;
  setCardEventListeners(initialElement); //вызфвает ф-цию с обработчиками событий
  return initialElement;
- //elementsList.prepend(initialElement); //вставляет клонируемые карточки в блок в начало
-}
+}*/
 
+//вставляет клонируемые карточки в блок в начало
+/*
 function createCard(card) {
  elementsList.prepend(card);
 }
+*/
+
+
 
 /*обрабатывает создание всех карточек из массива*/
-(function renderItems() {
+/*(function renderItems() {
  initialCards.forEach(function (element) {
   const card = renderCard(element);
   createCard(card);
  }); //применяется к каждому элементу массива
-})() /*самовызывающаяся функция*/
+})() /!*самовызывающаяся функция*!/
 
 /*удаляет карточку*/
-function handleDelete(event) {
+/*function handleDelete(event) {
  event.target.closest('.element').remove();
 }
 
 /*подставляет класс с фото черный лайк*/
-function handleLike(event) {
+/*function handleLike(event) {
  event.target.classList.toggle('element__button_active');
-}
+}*/
 
 /*назначение событий*/
-function setCardEventListeners(element) {
- /*нажатие корзинка удалить вызывается ф-ция удаления блока*/
+/*function setCardEventListeners(element) {
+ /!*нажатие корзинка удалить вызывается ф-ция удаления блока*!/
  element.querySelector('.profile__delete').addEventListener('click', handleDelete);
- /*нажатие сердечка вызывает функцию поставления класса*/
+ /!*нажатие сердечка вызывает функцию поставления класса*!/
  element.querySelector('.element__button').addEventListener('click', handleLike);
- /*ф-ция добавить класс для поп открытия картинки*/
+ /!*ф-ция добавить класс для поп открытия картинки*!/
  element.querySelector('.element__img').addEventListener('click', openImgPopup);
-}
+}*/
 
 /*обработчик событий*/
 editButton.addEventListener('click', openProfileForm); /*ф-ция добавить класс*/
