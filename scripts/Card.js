@@ -1,10 +1,11 @@
 //создаёт карточку с текстом и ссылкой на изображение
 export class Card {
 
- constructor(data, cardSelector) {
+ constructor(data, cardSelector, handleCardClick) {
   this._link = data.link;
   this._name = data.name;
   this._cardSelector = cardSelector;
+  this._handleCardClick = handleCardClick;
  }
 
  _renderCard = () => {
@@ -23,8 +24,10 @@ export class Card {
   element.querySelector('.profile__delete').addEventListener('click', this._handleDelete);
   /*нажатие сердечка вызывает функцию поставления класса*/
   element.querySelector('.element__button').addEventListener('click', this._handleLike);
-  /*ф-ция добавить класс для поп открытия картинки*/
-  element.querySelector('.element__img').addEventListener('click', this._openImgPopup);
+  /*ф-ция добавить класс для попап открытия картинки*/
+  element.querySelector('.element__img').addEventListener('click', () => {
+   this._handleCardClick(this._name, this._link);
+  });
  }
 
  /*удаляет карточку*/
@@ -36,19 +39,10 @@ export class Card {
   event.target.classList.toggle('element__button_active');
  }
 
- _openImgPopup = (event) => {
-  this._openModal(document.querySelector('.popup_image-card'));//вызов функции подставления класса открытия попапа
-  const popupImg = document.querySelector('.popup__img');
-  popupImg.src = event.target.src;  //записывает ссылку
-  //ищем родителя, от родителя ищем текст
-  const name = event.target.closest('.element').querySelector('.element__text').textContent;
-  popupImg.alt = name; //записывает альт
-  document.querySelector('.popup__img-signature').textContent = name; //записывает текст
- }
 
-/*
+ //возвращаем карточку
  createCard = () => {
-  const card = this._renderCard();
-  document.querySelector('.elements').prepend(card);
- }*/
+  return this._renderCard();
+  /*  document.querySelector('.elements').prepend(card);*/
+ }
 }

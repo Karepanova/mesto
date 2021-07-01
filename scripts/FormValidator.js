@@ -3,6 +3,7 @@ export class FormValidator {
  constructor(config, form) {
   this._config = config;
   this._form = form;
+  this._button = this._form.querySelector(this._config.button);
  }
 
  enableValidation = () => {
@@ -31,20 +32,19 @@ export class FormValidator {
  }
 
  _setFieldError = (input) => {
-  const span = document.querySelector(`#${input.id}-error`);
+  const span = this._form.querySelector(`#${input.id}-error`);
   span.textContent = input.validationMessage;
  }
 
  _setSubmitButtonState = () => {
-  const button = this._form.querySelector(this._config.button);
   const isValid = this._form.checkValidity();
 
   if (isValid) {
-   button.classList.remove(this._config.buttonInvalid);
-   button.removeAttribute('disabled')
+   this._button.classList.remove(this._config.buttonInvalid);
+   this._button.removeAttribute('disabled')
   } else {
-   button.classList.add(this._config.buttonInvalid);
-   button.setAttribute('disabled', 'disabled')
+   this._button.classList.add(this._config.buttonInvalid);
+   this._button.setAttribute('disabled', 'disabled')
   }
  }
 
@@ -56,5 +56,3 @@ export class FormValidator {
   }
  }
 }
-
-
