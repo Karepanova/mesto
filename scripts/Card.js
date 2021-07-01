@@ -5,7 +5,6 @@ export class Card {
   this._link = data.link;
   this._name = data.name;
   this._cardSelector = cardSelector;
-  this._escKey = 27;
  }
 
  _renderCard = () => {
@@ -47,26 +46,9 @@ export class Card {
   document.querySelector('.popup__img-signature').textContent = name; //записывает текст
  }
 
- _openModal = (modal) => {
-  document.addEventListener('keydown', this._handleEscUp);
-  modal.classList.add('popup_opened');
- }
-
- _handleEscUp = (event) => {
-  if (event.keyCode === this._escKey) {
-   const activePopup = document.querySelector('.popup_opened');
-   this._closeModal(activePopup);
-  }
- }
-
- _closeModal = (modal) => {
-  // функционал удаления класса элемента modal
-  document.removeEventListener('keydown', this._handleEscUp);
-  modal.classList.remove('popup_opened');
- }
-
+/*
  createCard = () => {
   const card = this._renderCard();
   document.querySelector('.elements').prepend(card);
- }
+ }*/
 }

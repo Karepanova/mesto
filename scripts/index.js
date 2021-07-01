@@ -17,16 +17,34 @@ const popupNewCard = document.querySelector('.popup_new-card');
 const popupCloseNewCard = popupNewCard.querySelector('.popup__close-new-card');
 const popupInfoNaming = document.querySelector('.popup__info_naming'); //из инпута
 const popupInfLink = document.querySelector('.popup__info_link');// из инпута
+
 const popupImageCard = document.querySelector('.popup_image-card'); //попап картинка
+const popupImg = document.querySelector('.popup__img');
+const popupImgSignature = document.querySelector('.popup__img-signature');
+
+
 const popupCloseImage = popupImageCard.querySelector('.popup__close-image');//закрыть попап картинку
-const popupImg = document.querySelector('.popup__img'); //поле ссылка попап фото
 const escKey = 27;
+
+
+function openImgPopup(event) {
+  openModal (popupImageCard);//вызов функции подставления класса открытия попапа
+
+ popupImg.src = event.target.src;  //записывает ссылку
+ //ищем родителя, от родителя ищем текст
+ const name = event.target.closest('.element').querySelector('.element__text').textContent;
+ popupImg.alt = name; //записывает альт
+ popupImgSignature.textContent = name; //записывает текст
+}
+
+
 
 // функционал добавления класса к элементу modal
 function openModal(modal) {
  document.addEventListener('keydown', handleEscUp); //
  modal.classList.add('popup_opened');
 }
+
 
 /*открывает форму редактирования профиля*/
 function openProfileForm() {
@@ -54,6 +72,8 @@ const handleEscUp = (event) => {
   closeModal(activePopup);
  }
 };
+
+
 
 /*сохраняет введенные в профиль данные*/
 function submitEditForm(evt) {
@@ -131,3 +151,4 @@ forms.forEach(function (form) {
  const validator = new FormValidator(config, document.querySelector(form));
  validator.enableValidation();
 });
+
