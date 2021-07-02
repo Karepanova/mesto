@@ -80,10 +80,7 @@ function submitCardForm(evt) {
   name: popupInfoNaming.value,
   link: popupInfLink.value
  };
-
- //создание экземляра карточки, добавление в начало, и закрытие попапа.
- const card = new Card(element, '#elements-template', handleCardClick);
- const insertCard = card.createCard();
+ const insertCard = createCard(element);
  document.querySelector('.elements').prepend(insertCard);
  closeModal(popupNewCard);
 }
@@ -92,9 +89,6 @@ function submitCardForm(evt) {
 /*обработчик событий*/
 editButton.addEventListener('click', openProfileForm); /*ф-ция добавить класс*/
 addButton.addEventListener('click', openFormAddCard); /*ф-ция добавить класс для формы с фото*/
-//popupCloseProfile.addEventListener('click', () => closeModal(popupEditProfile)); /*ф-ция удалить класс*/
-//popupCloseNewCard.addEventListener('click', () => closeModal(popupNewCard)); /*ф-ция удалить класс для формы с фото*/
-//popupCloseImage.addEventListener('click', () => closeModal(popupImg)); /*ф-ция удалить класс для формы с фото*/
 formEditProfile.addEventListener('submit', submitEditForm); /*ф-ция отправки формы*/
 formNewCard.addEventListener('submit', submitCardForm); /*ф-ция отправки формы*/
 
@@ -112,10 +106,24 @@ popups.forEach((popup) => {
 
 //вставка из массива экзепляров карточек
 initialCards.forEach(function (element) {
+ const insertCard = createCard(element);
+ document.querySelector('.elements').prepend(insertCard);
+});
+
+//создает экземпляр класса и возвращает карточку
+function createCard(element) {
+ const card = new Card(element, '#elements-template', handleCardClick);
+ return card.createCard();
+}
+
+/*
+function createCard(element) {
  const card = new Card(element, '#elements-template', handleCardClick);
  const insertCard = card.createCard();
  document.querySelector('.elements').prepend(insertCard);
-});
+ return card;
+}
+*/
 
 const config = {
  form: `.popup__data`,
