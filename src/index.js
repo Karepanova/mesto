@@ -1,6 +1,8 @@
-import {Card} from './Card.js';
-import {FormValidator} from './FormValidator.js';
-import {initialCards} from './initial-сards.js';
+import '../pages/index.css'; // добавьте импорт главного файла стилей
+import {Card} from '../scripts/Card.js';
+import {FormValidator} from '../scripts/FormValidator.js';
+import {initialCards} from '../scripts/initial-сards.js';
+
 
 const content = document.querySelector('.content');
 const editButton = content.querySelector('.profile__edit-button');
