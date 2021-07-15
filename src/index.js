@@ -3,6 +3,12 @@ import {Card} from '../scripts/Card.js';
 import {FormValidator} from '../scripts/FormValidator.js';
 import {initialCards} from '../scripts/initial-сards.js';
 
+import {Section} from '../scripts/Section.js';
+import Popup from '../scripts/Popup.js';
+import {PopupWithImage} from '../scripts/PopupWithImage.js';
+import {PopupWithForm} from '../scripts/PopupWithForm.js';
+
+
 
 const content = document.querySelector('.content');
 const editButton = content.querySelector('.profile__edit-button');
@@ -28,15 +34,13 @@ function handleCardClick(name, link) {
  //устанавливаем ссылку
  popupImg.src = link;
  popupImg.alt = name;
- //устанавливаем подпись картинке
- popupImgSignature.textContent = name;
- //открываем попап
- openModal(popupImageCard);
+ popupImgSignature.textContent = name;//устанавливаем подпись картинке
+ openModal(popupImageCard);//открываем попап
 }
 
 // функционал добавления класса к элементу modal
 function openModal(modal) {
- document.addEventListener('keydown', handleEscUp); //
+ document.addEventListener('keydown', handleEscUp);
  modal.classList.add('popup_opened');
 }
 
@@ -107,25 +111,29 @@ popups.forEach((popup) => {
 })
 
 //вставка из массива экзепляров карточек
-initialCards.forEach(function (element) {
+/*initialCards.forEach(function (element) {
  const insertCard = createCard(element);
  document.querySelector('.elements').prepend(insertCard);
+});*/
+
+
+const cardsList = new Section({
+items: initialCards,
+renderer: (item) => {
+ const insertCard = createCard(item);
+ document.querySelector('.elements').prepend(insertCard);
+  cardsList.append(insertCard);
+  }
 });
+cardsList.initialCards();
+
+
 
 //создает экземпляр класса и возвращает карточку
 function createCard(element) {
  const card = new Card(element, '#elements-template', handleCardClick);
  return card.createCard();
 }
-
-/*
-function createCard(element) {
- const card = new Card(element, '#elements-template', handleCardClick);
- const insertCard = card.createCard();
- document.querySelector('.elements').prepend(insertCard);
- return card;
-}
-*/
 
 const config = {
  form: `.popup__data`,
