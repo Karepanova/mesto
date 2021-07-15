@@ -1,35 +1,33 @@
 export default class Popup {
- constructor(popupSelector){
-this._popupSelector = popupSelector;
+ constructor(popupSelector) {
+  this._popupSelector = document.querySelector(popupSelector);
+  this._escKey = 27;
  }
 
- open(modal){
-  document.addEventListener('keydown', this._handleEscClose);
-  modal.classList.add('popup_opened');
+ open = () => {
+  this._popupSelector.classList.add('popup_opened');
  } //открытие попапа
 
 
- close(modal){
-  document.removeEventListener('keydown', this._handleEscClose);
-  modal.classList.remove('popup_opened');
+ close = () => {
+  this._popupSelector.classList.remove('popup_opened');
  } // закрытие попапа
 
 
  _handleEscClose = (event) => {
- if (event.keyCode === escKey) {
- const activePopup = document.querySelector('.popup_opened');
-  close(activePopup);
-}
-}; //содержит логику закрытия попапа клавишей Esc
+  if (event.keyCode === this._escKey) {
+   this.close();
+  }
+ } //содержит логику закрытия попапа клавишей Esc
 
 
- _setEventListeners(popup){
-  popup.addEventListener('mousedown', (evt) => {
+ _setEventListeners = () => {
+  this._popupSelector.addEventListener('mousedown', (evt) => {
    if (evt.target.classList.contains('popup_opened')) {
-    close(popup);
+    this.close();
    }
    if (evt.target.classList.contains('popup__close-icon')) {
-    close(popup);
+    this.close();
    }
   })
  } //добавляет слушатель клика иконке закрытия попапа

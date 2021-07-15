@@ -8,12 +8,13 @@ export default class Section {
  }
 
  //отвечает за отрисовку всех элементов
- initialCards() {
+ initialItems = () => {
   this._renderedItems.forEach(item => this._renderer(item))
  }
 
+
  //принимает DOM-элемент и добавляет его в контейнер
- addItem(element) {
+ addItem = (element) => {
   this._container.append(element);
  }
 }

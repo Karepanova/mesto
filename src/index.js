@@ -116,23 +116,27 @@ formNewCard.addEventListener('submit', submitCardForm); /*ф-ция отправ
 });*/
 
 
+
+//экземпляр class Section - отвечает за отрисовку элементов на странице
 const cardsList = new Section({
-items: initialCards,
-renderer: (item) => {
-const insertCard = createCard(item);
-document.querySelector('.elements').prepend(insertCard);
- cardsList.append(insertCard);
+ items: initialCards,
+ renderer: (item) => {
+  const card = new Card(item, '#elements-template', handleCardClick);
+  const insertCard = card.createCard();
+  this.addItem(insertCard);
  }
-});
-cardsList.initialCards();
+}, '.elements');
+cardsList.initialItems();
 
 
 
 //создает экземпляр класса и возвращает карточку
+/*
 function createCard(element) {
  const card = new Card(element, '#elements-template', handleCardClick);
  return card.createCard();
 }
+*/
 
 const config = {
  form: `.popup__data`,
