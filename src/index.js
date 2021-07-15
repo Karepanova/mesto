@@ -29,20 +29,19 @@ const popupImg = document.querySelector('.popup__img');
 const popupImgSignature = document.querySelector('.popup__img-signature');
 const escKey = 27;
 
-
+//большое фото попап
 function handleCardClick(name, link) {
- //устанавливаем ссылку
- popupImg.src = link;
- popupImg.alt = name;
+ popupImg.src = link; //устанавливаем ссылку
+ popupImg.alt = name; //устанавливаем альт
  popupImgSignature.textContent = name;//устанавливаем подпись картинке
  openModal(popupImageCard);//открываем попап
 }
 
 // функционал добавления класса к элементу modal
-function openModal(modal) {
+/*function openModal(modal) {
  document.addEventListener('keydown', handleEscUp);
  modal.classList.add('popup_opened');
-}
+}*/
 
 
 /*открывает форму редактирования профиля*/
@@ -59,18 +58,18 @@ function openFormAddCard() {
  formNewCard.reset(); //чистит инпут
 }
 
-function closeModal(modal) {
- // функционал удаления класса элемента modal
+// функционал удаления класса элемента modal
+/*function closeModal(modal) {
  document.removeEventListener('keydown', handleEscUp);
  modal.classList.remove('popup_opened');
-}
+}*/
 
-const handleEscUp = (event) => {
+/*const handleEscUp = (event) => {
  if (event.keyCode === escKey) {
   const activePopup = document.querySelector('.popup_opened');
   closeModal(activePopup);
  }
-};
+};*/
 
 /*сохраняет введенные в профиль данные*/
 function submitEditForm(evt) {
@@ -99,7 +98,7 @@ formEditProfile.addEventListener('submit', submitEditForm); /*ф-ция отпр
 formNewCard.addEventListener('submit', submitCardForm); /*ф-ция отправки формы*/
 
 
-popups.forEach((popup) => {
+/*popups.forEach((popup) => {
  popup.addEventListener('mousedown', (evt) => {
   if (evt.target.classList.contains('popup_opened')) {
    closeModal(popup);
@@ -108,7 +107,7 @@ popups.forEach((popup) => {
    closeModal(popup);
   }
  })
-})
+})*/
 
 //вставка из массива экзепляров карточек
 /*initialCards.forEach(function (element) {
@@ -120,10 +119,10 @@ popups.forEach((popup) => {
 const cardsList = new Section({
 items: initialCards,
 renderer: (item) => {
- const insertCard = createCard(item);
- document.querySelector('.elements').prepend(insertCard);
-  cardsList.append(insertCard);
-  }
+const insertCard = createCard(item);
+document.querySelector('.elements').prepend(insertCard);
+ cardsList.append(insertCard);
+ }
 });
 cardsList.initialCards();
 

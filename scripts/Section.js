@@ -1,3 +1,5 @@
+//class Section - отвечает за отрисовку элементов на странице
+
 export default class Section {
  constructor({items, renderer}, containerSelector){
   this._renderedItems = items; //это массив данных, которые нужно добавить на страницу при инициализации класса
