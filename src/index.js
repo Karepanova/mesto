@@ -9,7 +9,6 @@ import {PopupWithImage} from '../scripts/PopupWithImage.js';
 import {PopupWithForm} from '../scripts/PopupWithForm.js';
 
 
-
 const content = document.querySelector('.content');
 const editButton = content.querySelector('.profile__edit-button');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
@@ -31,10 +30,10 @@ const escKey = 27;
 
 //большое фото попап
 function handleCardClick(name, link) {
- popupImg.src = link; //устанавливаем ссылку
- popupImg.alt = name; //устанавливаем альт
- popupImgSignature.textContent = name;//устанавливаем подпись картинке
- openModal(popupImageCard);//открываем попап
+  popupImg.src = link; //устанавливаем ссылку
+  popupImg.alt = name; //устанавливаем альт
+  popupImgSignature.textContent = name;//устанавливаем подпись картинке
+  openModal(popupImageCard);//открываем попап
 }
 
 // функционал добавления класса к элементу modal
@@ -46,16 +45,16 @@ function handleCardClick(name, link) {
 
 /*открывает форму редактирования профиля*/
 function openProfileForm() {
- openModal(popupEditProfile); //вызов функции подставления класса открытия попапа
- /*при открытии, подтягивает данные со страницы в форму */
- popupInfoName.value = title.textContent;
- popupInfoAbout.value = subtitle.textContent;
+  openModal(popupEditProfile); //вызов функции подставления класса открытия попапа
+  /*при открытии, подтягивает данные со страницы в форму */
+  popupInfoName.value = title.textContent;
+  popupInfoAbout.value = subtitle.textContent;
 }
 
 /*открывает форму "добавить фото"*/
 function openFormAddCard() {
- openModal(popupNewCard);//вызов функции подставления класса открытия попапа
- formNewCard.reset(); //чистит инпут
+  openModal(popupNewCard);//вызов функции подставления класса открытия попапа
+  formNewCard.reset(); //чистит инпут
 }
 
 // функционал удаления класса элемента modal
@@ -72,30 +71,32 @@ function openFormAddCard() {
 };*/
 
 /*сохраняет введенные в профиль данные*/
+/*
 function submitEditForm(evt) {
- evt.preventDefault();//не отправлять форму
- title.textContent = popupInfoName.value;// вставка в профиль на странице из формы
- subtitle.textContent = popupInfoAbout.value;// вставка в профиль на странице из формы
- closeModal(popupEditProfile); //вызов функции удаления класса попап для закрытия;
+  evt.preventDefault();//не отправлять форму
+  title.textContent = popupInfoName.value;// вставка в профиль на странице из формы
+  subtitle.textContent = popupInfoAbout.value;// вставка в профиль на странице из формы
+  closeModal(popupEditProfile); //вызов функции удаления класса попап для закрытия;
 }
+*/
 
 function submitCardForm(evt) {
- evt.preventDefault();//не отправлять форму
- const element = {
-  name: popupInfoNaming.value,
-  link: popupInfLink.value
- };
- const insertCard = createCard(element);
- document.querySelector('.elements').prepend(insertCard);
- closeModal(popupNewCard);
+  evt.preventDefault();//не отправлять форму
+  const element = {
+    name: popupInfoNaming.value,
+    link: popupInfLink.value
+  };
+  const insertCard = createCard(element);
+  document.querySelector('.elements').prepend(insertCard);
+  closeModal(popupNewCard);
 }
 
 
 /*обработчик событий*/
-editButton.addEventListener('click', openProfileForm); /*ф-ция добавить класс*/
-addButton.addEventListener('click', openFormAddCard); /*ф-ция добавить класс для формы с фото*/
-formEditProfile.addEventListener('submit', submitEditForm); /*ф-ция отправки формы*/
-formNewCard.addEventListener('submit', submitCardForm); /*ф-ция отправки формы*/
+/*editButton.addEventListener('click', openProfileForm); /!*ф-ция добавить класс*!/
+addButton.addEventListener('click', openFormAddCard); /!*ф-ция добавить класс для формы с фото*!/*/
+/*formEditProfile.addEventListener('submit', submitEditForm); /!*ф-ция отправки формы*!/
+formNewCard.addEventListener('submit', submitCardForm); /!*ф-ция отправки формы*!/*/
 
 
 /*popups.forEach((popup) => {
@@ -116,18 +117,16 @@ formNewCard.addEventListener('submit', submitCardForm); /*ф-ция отправ
 });*/
 
 
-
 //экземпляр class Section - отвечает за отрисовку элементов на странице
 const cardsList = new Section({
- items: initialCards,
- renderer: (item) => {
-  const card = new Card(item, '#elements-template', handleCardClick);
-  const insertCard = card.createCard();
-  this.addItem(insertCard);
- }
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '#elements-template', handleCardClick);
+    const insertCard = card.createCard();
+    this.addItem(insertCard);
+  }
 }, '.elements');
 cardsList.initialItems();
-
 
 
 //создает экземпляр класса и возвращает карточку
@@ -139,17 +138,17 @@ function createCard(element) {
 */
 
 const config = {
- form: `.popup__data`,
- button: '.popup__button',
- buttonInvalid: 'popup__button_invalid',
- inputError: 'popup__info_error'
+  form: `.popup__data`,
+  button: '.popup__button',
+  buttonInvalid: 'popup__button_invalid',
+  inputError: 'popup__info_error'
 };
 const forms = [
- '.popup__data[name="form1"]',
- '.popup__data[name="form2"]'
+  '.popup__data[name="form1"]',
+  '.popup__data[name="form2"]'
 ];
 
 forms.forEach(function (form) {
- const validator = new FormValidator(config, document.querySelector(form));
- validator.enableValidation();
+  const validator = new FormValidator(config, document.querySelector(form));
+  validator.enableValidation();
 });
