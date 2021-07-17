@@ -7,17 +7,15 @@ export default class UserInfo {
 
   //возвращает объект с данными пользователя
   getUserInfo() {
-    const userData ={
+    return {
       name: this._profileName.textContent,
       about: this._profileAbout.textContent
     }
-    return userData;
-
   }
 
   //принимает новые данные пользователя и добавляет их на страницу
-  setUserInfo(profileName, profileAbout) {
-    this._profileName.textContent = profileName;
-    this._profileAbout.textContent = profileAbout;
+  setUserInfo({name, about}) {
+    this._profileName.textContent = name;
+    this._profileAbout.textContent = about;
   }
 }

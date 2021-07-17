@@ -1,27 +1,26 @@
 //настраивает валидацию полей формы
-export class FormValidator {
+export default class FormValidator {
  constructor(config, form) {
   this._config = config;
   this._form = form;
   this._button = this._form.querySelector(this._config.button);
  }
 
- enableValidation = () => {
-  this._form.addEventListener('submit', this._handleFormSubmit); //слушатель на сабмит
-  this._form.addEventListener('input', this._handleFormInput); //проверяет что вводим
+ enableValidation() {
+  this._form.addEventListener('submit', this._handleFormSubmit.bind(this)); //слушатель на сабмит
+  this._form.addEventListener('input', this._handleFormInput.bind(this)); //проверяет что вводим
  }
 
- _handleFormSubmit = (event) => {
+ _handleFormSubmit(event) {
   event.preventDefault(); //не отправляет форму
 
   const isValid = this._form.checkValidity();
   if (isValid) {
-   this._form.reset();
    this._setSubmitButtonState();
   }
  }
 
- _handleFormInput = (event) => {
+ _handleFormInput(event) {
   const input = event.target; // отправил событие
 
   // показываем тексты ошибок пользователям
@@ -31,12 +30,12 @@ export class FormValidator {
   this._setSubmitButtonState();
  }
 
- _setFieldError = (input) => {
+ _setFieldError(input) {
   const span = this._form.querySelector(`#${input.id}-error`);
   span.textContent = input.validationMessage;
  }
 
- _setSubmitButtonState = () => {
+ _setSubmitButtonState() {
   const isValid = this._form.checkValidity();
 
   if (isValid) {
@@ -48,7 +47,7 @@ export class FormValidator {
   }
  }
 
- _setInputError = (input) => {
+ _setInputError(input) {
   if (input.validity.valid) {
    input.classList.remove(this._config.inputError);
   } else {

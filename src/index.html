@@ -11,12 +11,12 @@
 <div class="container">
   <div class="page">
     <header class="header">
-      <img alt="Лого" class="header__logo" src="<%=require('../images/header-logo.svg')%>">
+      <img alt="Лого" class="header__logo" src="<%=require('./images/header-logo.svg')%>">
     </header>
 
     <main class="content">
       <section class="profile">
-        <img alt="Аватар" class="profile__avatar" src="<%=require('../images/kusto.jpg')%>">
+        <img alt="Аватар" class="profile__avatar" src="<%=require('./images/kusto.jpg')%>">
         <div class="profile__info">
           <div class="profile__record">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -45,10 +45,10 @@
     <button class="popup__close-icon popup__close-profile" type="button"><!--кнопка закрыть попап--></button>
     <h2 class="popup__title">Редактировать профиль</h2>
     <form class="popup__data" name="form1" novalidate>
-      <input class="popup__info popup__info_profile_name" id="popup-name" maxlength="40" minlength="2" name="firstname"
+      <input class="popup__info popup__info_profile_name" id="popup-name" maxlength="40" minlength="2" name="name"
              placeholder="Имя" required type="text" value="Жак-Ив Кусто">
       <span class="popup__error" id="popup-name-error"></span>
-      <input class="popup__info popup__info_profile_about" id="popup-text" maxlength="200" minlength="2" name="describe"
+      <input class="popup__info popup__info_profile_about" id="popup-text" maxlength="200" minlength="2" name="about"
              placeholder="О себе" required type="text" value="Исследователь океана">
       <span class="popup__error" id="popup-text-error"></span>
       <button class="popup__button" type="submit">Сохранить<!--кнопка--></button>
@@ -68,7 +68,7 @@
       <input class="popup__info popup__info_link" id="link" name="link"
              placeholder="Ссылка на картинку" required type="url" value="">
       <span class="popup__error" id="link-error"></span>
-      <button class="popup__button popup__button_invalid" disabled type="submit">Создать<!--кнопка--></button>
+      <button class="popup__button popup__button_invalid" type="submit">Создать<!--кнопка--></button>
     </form>
   </div>
 </div>
