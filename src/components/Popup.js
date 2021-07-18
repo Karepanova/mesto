@@ -2,12 +2,14 @@ export default class Popup {
  constructor(popupSelector) {
   this._popupSelector = document.querySelector(popupSelector);
   this._escKey = 27;
-  //this.setEventListeners();
+  this._handleEscClose = this._handleEscClose.bind(this);
  }
 
  //открытие попапа
  open() {
   this._popupSelector.classList.add('popup_opened');
+  //слушатель на нажатие кнопки
+  document.addEventListener('keydown', this._handleEscClose);
  }
 
 
@@ -37,8 +39,5 @@ export default class Popup {
     this.close();
    }
   })
-
-  //слушатель на нажатие кнопки
-  document.addEventListener('keydown', this._handleEscClose.bind(this));
  }
 }
