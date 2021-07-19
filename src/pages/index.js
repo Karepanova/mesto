@@ -13,6 +13,7 @@ const formEditProfile = document.querySelector('.popup__data[name=profile-form-n
 const popupInfoName = formEditProfile.querySelector('.popup__info_profile_name');
 const popupInfoAbout = formEditProfile.querySelector('.popup__info_profile_about');
 const addButton = content.querySelector('.profile__add-button');
+const buttonNewCard = document.querySelector('.popup_new-card .popup__button');
 //для валидатора
 const config = {
  form: `.popup__data`,
@@ -84,7 +85,7 @@ function addCard(item) {
 //ф-я открытия формы добавления карточки
 function openAddCardForm() {
  popupNewForm.setEventListeners();
- document.querySelector('.popup_new-card .popup__button').setAttribute('disabled', 'disabled');
+ buttonNewCard.setAttribute('disabled', 'disabled');
  popupNewForm.open();
 }
 
