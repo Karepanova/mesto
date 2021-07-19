@@ -16,7 +16,7 @@ export default class FormValidator {
 
   const isValid = this._form.checkValidity();
   if (isValid) {
-   this._setSubmitButtonState();
+   this.setSubmitButtonState();
   }
  }
 
@@ -27,7 +27,7 @@ export default class FormValidator {
   this._setFieldError(input);
   this._setInputError(input);
   // активируем или деактивируем кнопку
-  this._setSubmitButtonState();
+  this.setSubmitButtonState();
  }
 
  _setFieldError(input) {
@@ -35,7 +35,7 @@ export default class FormValidator {
   span.textContent = input.validationMessage;
  }
 
- _setSubmitButtonState() {
+ setSubmitButtonState() {
   const isValid = this._form.checkValidity();
 
   if (isValid) {

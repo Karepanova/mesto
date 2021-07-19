@@ -13,7 +13,6 @@ const formEditProfile = document.querySelector('.popup__data[name=profile-form-n
 const popupInfoName = formEditProfile.querySelector('.popup__info_profile_name');
 const popupInfoAbout = formEditProfile.querySelector('.popup__info_profile_about');
 const addButton = content.querySelector('.profile__add-button');
-const buttonNewCard = document.querySelector('.popup_new-card .popup__button');
 //для валидатора
 const config = {
  form: `.popup__data`,
@@ -25,15 +24,17 @@ const config = {
 
 //создание экземпляра класса - открытие картинки
 const popupImg = new PopupWithImage('.popup_image-card');
+popupImg.setEventListeners();
 
 //экземпляр класса - делает форму добавления карточки
 const popupNewForm = new PopupWithForm('.popup_new-card', (evt) => {
  evt.preventDefault();//не отправлять форму
  const item = popupNewForm.getInputValues();
- const insertCard = addCard(item);
+ const insertCard = createCard(item);
  cardsList.addItem(insertCard);
  popupNewForm.close();
 });
+popupNewForm.setEventListeners();
 
 //информация о профиле
 const userInfo = new UserInfo({
@@ -48,12 +49,13 @@ const popupProfileForm = new PopupWithForm('.popup_edit-profile', (evt) => {
  userInfo.setUserInfo(formData); //вставляет данные из формы на страницу
  popupProfileForm.close();
 });
+popupProfileForm.setEventListeners();
 
 //экземпляр class Section - отвечает за отрисовку элементов на странице
 const cardsList = new Section({
  items: initialCards,
  renderer: (item) => {
-  const insertCard = addCard(item);
+  const insertCard = createCard(item);
   cardsList.addItem(insertCard);
  }
 }, '.elements');
@@ -74,9 +76,8 @@ editButton.addEventListener('click', openProfileForm);
 
 
 //возвращает карточку
-function addCard(item) {
+function createCard(item) {
  const card = new Card(item, '#elements-template', (name, link) => {
-  popupImg.setEventListeners();
   popupImg.open(name, link);
  });
  return card.createCard();
@@ -84,8 +85,7 @@ function addCard(item) {
 
 //ф-я открытия формы добавления карточки
 function openAddCardForm() {
- popupNewForm.setEventListeners();
- buttonNewCard.setAttribute('disabled', 'disabled');
+ validatorAddForm.setSubmitButtonState();
  popupNewForm.open();
 }
 
@@ -95,6 +95,5 @@ function openProfileForm() {
  const userInfoData = userInfo.getUserInfo();
  popupInfoName.value = userInfoData.name; //вставка с шапки в форму
  popupInfoAbout.value = userInfoData.about; //вставка с шапки в форму
- popupProfileForm.setEventListeners();
  popupProfileForm.open();
 }
