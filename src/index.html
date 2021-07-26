@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta content="width=device-width, height=device-height, initial-scale=1" name="viewport">
   <!--<link href="../pages/index.css" rel="stylesheet">-->
-  <script src="src/components/Api.js" defer></script>
   <title>Mesto</title>
 </head>
 <body>
@@ -29,7 +28,6 @@
       </section>
 
       <section class="elements">
-
 
       </section>
     </main>
@@ -73,6 +71,33 @@
     </form>
   </div>
 </div>
+
+<!--аватар-->
+<div class="popup">
+  <div class="popup__container">
+    <button class="popup__close-icon popup__close-new-card" type="button"></button>
+    <h2 class="popup__title">Обновить аватар</h2>
+    <form class="popup__data" name="add-card-form-name" novalidate>
+      <input class="popup__info popup__info_link" id="link-avatar" name="link" placeholder="Ссылка на картинку"
+             required type="url" value="">
+      <span class="popup__error" id="link-error-avatar"></span>
+      <button class="popup__button popup__button_invalid" type="submit" value="Сохранить">Сохранить</button>
+    </form>
+  </div>
+</div>
+
+
+<!--удалить карточку-->
+<div class="popup">
+  <div class="popup__container">
+    <button type="button" class="popup__close-icon"></button>
+    <h2 class="popup__title">Вы уверены?</h2>
+    <form class="popup__data" novalidate>
+      <button class="popup__button popup__button_invalid" type="submit" value="Да">Да</button>
+    </form>
+  </div>
+</div>
+
 
 
 <div class="popup popup_image-card">

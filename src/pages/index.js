@@ -5,6 +5,7 @@ import initialCards from '../components/initial-сards.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithSubmit from '../components/PopupWithSubmit.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
@@ -28,14 +29,14 @@ const popupImg = new PopupWithImage('.popup_image-card');
 popupImg.setEventListeners();
 
 //экземпляр класса - делает форму добавления карточки
-const popupNewForm = new PopupWithForm('.popup_new-card', (evt) => {
+/*const popupNewForm = new PopupWithForm('.popup_new-card', (evt) => {
  evt.preventDefault();//не отправлять форму
  const item = popupNewForm.getInputValues();
  const insertCard = createCard(item);
  cardsList.addItem(insertCard);
  popupNewForm.close();
 });
-popupNewForm.setEventListeners();
+popupNewForm.setEventListeners();*/
 
 //информация о профиле
 const userInfo = new UserInfo({
@@ -53,14 +54,14 @@ const popupProfileForm = new PopupWithForm('.popup_edit-profile', (evt) => {
 popupProfileForm.setEventListeners();
 
 //экземпляр class Section - отвечает за отрисовку элементов на странице
-const cardsList = new Section({
+/*const cardsList = new Section({
  items: initialCards,
  renderer: (item) => {
   const insertCard = createCard(item);
   cardsList.addItem(insertCard);
  }
 }, '.elements');
-cardsList.initialItems();
+cardsList.initialItems();*/
 
 const validatorAddForm = new FormValidator(config, document.querySelector('.popup__data[name=add-card-form-name]'));
 validatorAddForm.enableValidation();
@@ -68,27 +69,26 @@ const validatorEditForm = new FormValidator(config, document.querySelector('.pop
 validatorEditForm.enableValidation();
 
 
-
 //ф-ция открывает форму добавления карточки
-addButton.addEventListener('click', openAddCardForm);
+/*addButton.addEventListener('click', openAddCardForm);*/
 
 //открывает форму редактирования профиля
 editButton.addEventListener('click', openProfileForm);
 
 
 //возвращает карточку
-function createCard(item) {
+/*function createCard(item) {
  const card = new Card(item, '#elements-template', (name, link) => {
   popupImg.open(name, link);
  });
  return card.createCard();
-}
+}*/
 
 //ф-я открытия формы добавления карточки
-function openAddCardForm() {
+/*function openAddCardForm() {
  validatorAddForm.setSubmitButtonState();
  popupNewForm.open();
-}
+}*/
 
 //ф-я открытия формы редактирования профиля
 function openProfileForm() {
@@ -100,12 +100,79 @@ function openProfileForm() {
 }
 
 
+
+
+
+
+
+
+
+
 const api = new Api({
-  url: '',
+  address: 'https://mesto.nomoreparties.co/v1/cohort-26',
   headers: {
-   "Content-type": "application/json"
+   authorization: '9f8fc9db-9c27-4bd4-bed6-8e527c6c542e',
+   'Content-Type': 'application/json'
   }
  }
 )
+
+//получение карточек промис
+const getArrayCards = api.getArrayCards();
+
+
+getArrayCards.then((cards) => {
+ //открытие формы + добавление карточки
+ const popupNewForm = new PopupWithForm('.popup_new-card', (evt) => {
+  evt.preventDefault();//не отправлять форму
+  const item = popupNewForm.getInputValues();
+
+
+  const addNewCard = api.addNewCard(item);
+  addNewCard.then((card) => {
+   const insertCard = createCard(card);
+   cardsList.addItem(insertCard);
+  })
+
+
+  popupNewForm.close();
+ });
+ popupNewForm.setEventListeners();
+
+ //отрисовываем полученые карточки
+ const cardsList = new Section({
+  items: cards,
+  renderer: (item) => {
+   const insertCard = createCard(item);
+   cardsList.addItem(insertCard);
+  }
+ }, '.elements');
+ cardsList.initialItems();
+
+//ф-ция открывает форму добавления карточки
+ addButton.addEventListener('click', openAddCardForm);
+
+//ф-я открытия формы добавления карточки
+ function openAddCardForm() {
+  validatorAddForm.setSubmitButtonState();
+  popupNewForm.open();
+ }
+
+ //возвращает карточку
+ function createCard(item) {
+  const card = new Card(item, '#elements-template', (name, link) => {
+   popupImg.open(name, link);
+  });
+  return card.createCard();
+ }
+
+})
+
+
+//проба
+/*const abc = {
+ name: 'Сова',
+ link: 'https://images.unsplash.com/photo-1516233758813-a38d024919c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1868&q=80'
+}*/
 
 

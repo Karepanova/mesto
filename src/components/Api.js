@@ -1,48 +1,17 @@
-/*
-если говорить о конкретных методах которые должен осуществлять данный класс, то это:
- получить список всех карточек в виде массива (GET)
-добавить карточку (POST)
-получить данные пользователя (GET)
-заменить данные пользователя (PATCH)
-“залайкать” карточку (PUT)
-удалить лайк карточки (DELETE)
-удалить карточку (DELETE)
-заменить аватар (PATCH)
-*/
-
-
 export default class Api {
- constructor(/*config*/) {
-  //this._url = config.url;
-  //this._headers = config.headers;
+ constructor(config) {
+  this._address = config.address;
+  this._headers = config.headers;
  }
 
- // получить список всех карточек в виде массива (GET)
- getArrayCards() {
-  return fetch('https://mesto.nomoreparties.co/v1/cohort-26/cards', {
-   method: 'GET',
-   headers: {
-    authorization: '9f8fc9db-9c27-4bd4-bed6-8e527c6c542e'
-   }
-  })
-   .then(res => {
-    if (res.ok) {
-     return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-   })
- }
 
- //получить данные пользователя (GET)
+ //1. Загрузка информации о пользователе с сервера (GET)
  getUserData() {
-  return fetch('https://nomoreparties.co/v1/cohort-26/users/me', {
+  return fetch(`${this._address}/users/me`, {
    method: 'GET',
-   headers: {
-    authorization: '9f8fc9db-9c27-4bd4-bed6-8e527c6c542e',
-    'Content-Type': 'application/json'
-   }
+   headers: this._headers
   })
-   .then(res => {
+   .then((res) => {
     if (res.ok) {
      return res.json();
     }
@@ -51,19 +20,32 @@ export default class Api {
  }
 
 
- // редактировать/заменить данные пользователя (PATCH)
+
+ // 2. Загрузка карточек с сервера (GET)
+ getArrayCards() {
+  return fetch(`${this._address}/cards`, {
+   method: 'GET',
+   headers: this._headers
+  })
+   .then((res) => {
+    if (res.ok) {
+     return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+   })
+ }
+
+
+ // 3. Редактирование профиля (PATCH)
  editUserProfile(data) {
-  return fetch('https://mesto.nomoreparties.co/v1/cohort-26/users/me ', {
+  return fetch(`${this._address}/users/me`, {
    method: 'PATCH',
-   headers: {
-    authorization: '9f8fc9db-9c27-4bd4-bed6-8e527c6c542e',
-    'Content-Type': 'application/json'
-   },
+   headers: this._headers,
    body: JSON.stringify({
     name: data.name,
     about: data.about
    })
-  }).then(res => {
+  }).then((res) => {
    if (res.ok) {
     return res.json();
    }
@@ -72,20 +54,14 @@ export default class Api {
  }
 
 
-//добавить карточку (POST)
+//4. Добавление новой карточки (POST)
  addNewCard(data) {
-  return fetch('https://mesto.nomoreparties.co/v1/cohort-26/cards ', {
+  return fetch(`${this._address}/cards`, {
    method: 'POST',
-   headers: {
-    authorization: '9f8fc9db-9c27-4bd4-bed6-8e527c6c542e',
-    'Content-Type': 'application/json'
-   },
-   body: JSON.stringify({
-    name: data.name,
-    link: data.link
-   })
+   headers: this._headers,
+   body: JSON.stringify(data) //name и link
   })
-   .then(res => {
+   .then((res) => {
     if (res.ok) {
      return res.json();
     }
@@ -95,34 +71,14 @@ export default class Api {
  }
 
 
-//Отображение количества лайков карточки (PUT)
- likeCard() {
-  return fetch('/*todo - какая ссылка?*/', {
-   method: 'PUT',
-   headers: {
-    authorization: '9f8fc9db-9c27-4bd4-bed6-8e527c6c542e',
-    'Content-Type': 'application/json'
-   }
-  })
-   .then(res => {
-    if (res.ok) {
-     return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-   })
- }
 
-
- //удалить карточку (DELETE)
+ //7. Удаление карточки (DELETE)
  delCard() {
-  return fetch('/*todo - какая ссылка?*/', {
+  return fetch(`${this._address}/cards/${cardId}`, {
    method: 'DELETE',
-   headers: {
-    authorization: '9f8fc9db-9c27-4bd4-bed6-8e527c6c542e',
-    'Content-Type': 'application/json'
-   }
+   headers: this._headers
   })
-   .then(res => {
+   .then((res) => {
     if (res.ok) {
      return res.json();
     }
@@ -131,16 +87,30 @@ export default class Api {
  }
 
 
- //удалить лайк карточки  (DELETE)
+ //8. Постановка и снятие лайка
+ // 8.1 Установить лайк (PUT)
+ likeCard() {
+  return fetch(`${this._address}/cards/likes/${cardId}`, {
+   method: 'PUT',
+   headers: this._headers
+  })
+   .then((res) => {
+    if (res.ok) {
+     return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+   })
+ }
+
+
+
+ // 8.2 удалить лайк карточки  (DELETE)
  delLikeCard() {
-  return fetch(`/*todo - какая ссылка?*/`, {
+  return fetch(`${this._address}/cards/likes/${cardId}`, {
    method: 'DELETE',
-   headers: {
-    authorization: '9f8fc9db-9c27-4bd4-bed6-8e527c6c542e',
-    'Content-Type': 'application/json'
-   },
+   headers: this._headers
   })
-   .then(res => {
+   .then((res) => {
     if (res.ok) {
      return res.json();
     }
@@ -149,19 +119,16 @@ export default class Api {
  }
 
 
- //заменить аватар (PATCH)
+ //9. Обновление аватара пользователя (PATCH)
  editAvatar(data) {
-  return fetch('https://mesto.nomoreparties.co/v1/cohort-26/users/me/avatar', {
+  return fetch(`${this._address}/users/me/avatar`, {
    method: 'PATCH',
-   headers: {
-    authorization: '9f8fc9db-9c27-4bd4-bed6-8e527c6c542e',
-    'Content-Type': 'application/json'
-   },
+   headers: this._headers,
    body: JSON.stringify({
     avatar: data.avatar
    })
   })
-   .then(res => {
+   .then((res) => {
     if (res.ok) {
      return res.json();
     }
