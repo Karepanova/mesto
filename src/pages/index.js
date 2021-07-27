@@ -100,14 +100,6 @@ function openProfileForm() {
 }
 
 
-
-
-
-
-
-
-
-
 const api = new Api({
   address: 'https://mesto.nomoreparties.co/v1/cohort-26',
   headers: {
@@ -160,9 +152,17 @@ getArrayCards.then((cards) => {
 
  //возвращает карточку
  function createCard(item) {
-  const card = new Card(item, '#elements-template', (name, link) => {
-   popupImg.open(name, link);
-  });
+  const card = new Card(item, '#elements-template',
+   (name, link) => {
+    popupImg.open(name, link);
+   },
+   (cardId) => {
+    return api.likeCard(cardId);
+   },
+   (cardId) => {
+    return api.delLikeCard(cardId);
+   }
+  );
   return card.createCard();
  }
 

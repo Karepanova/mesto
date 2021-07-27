@@ -89,7 +89,7 @@ export default class Api {
 
  //8. Постановка и снятие лайка
  // 8.1 Установить лайк (PUT)
- likeCard() {
+ likeCard(cardId) {
   return fetch(`${this._address}/cards/likes/${cardId}`, {
    method: 'PUT',
    headers: this._headers
@@ -105,7 +105,7 @@ export default class Api {
 
 
  // 8.2 удалить лайк карточки  (DELETE)
- delLikeCard() {
+ delLikeCard(cardId) {
   return fetch(`${this._address}/cards/likes/${cardId}`, {
    method: 'DELETE',
    headers: this._headers

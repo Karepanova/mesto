@@ -90,14 +90,13 @@
 <!--удалить карточку-->
 <div class="popup">
   <div class="popup__container">
-    <button type="button" class="popup__close-icon"></button>
+    <button class="popup__close-icon" type="button"></button>
     <h2 class="popup__title">Вы уверены?</h2>
     <form class="popup__data" novalidate>
       <button class="popup__button popup__button_invalid" type="submit" value="Да">Да</button>
     </form>
   </div>
 </div>
-
 
 
 <div class="popup popup_image-card">
@@ -117,8 +116,10 @@
     </div>
     <div class="element__card">
       <h2 class="element__text"></h2>
-      <button class="element__button" type="button">
-      </button>
+      <div class="element__group">
+        <button class="element__button" type="button"></button>
+        <span class="element__count-likes">0</span>
+      </div>
     </div>
   </div>
 </template>
