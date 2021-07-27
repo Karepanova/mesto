@@ -108,6 +108,23 @@ const api = new Api({
   }
  }
 )
+//Загрузка информации о пользователе с сервера - промис
+const getUserData = api.getUserData();
+
+getUserData.then((data) => {
+ userInfo.setUserInfo(data);
+ }
+);
+
+
+
+
+
+
+
+
+
+
 
 //получение карточек промис
 const getArrayCards = api.getArrayCards();
