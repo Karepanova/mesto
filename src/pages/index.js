@@ -5,16 +5,22 @@ import initialCards from '../components/initial-сards.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-import PopupWithSubmit from '../components/PopupWithSubmit.js';
+import PopupConfirm from '../components/PopupConfirm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
 const content = document.querySelector('.content');
 const editButton = content.querySelector('.profile__edit-button');
 const formEditProfile = document.querySelector('.popup__data[name=profile-form-name]');
+const formAvatarProfile = document.querySelector('.popup__data[name=edit-form-avatar]');
 const popupInfoName = formEditProfile.querySelector('.popup__info_profile_name');
 const popupInfoAbout = formEditProfile.querySelector('.popup__info_profile_about');
+const popupInfoAvatar = formAvatarProfile.querySelector('.popup__info_avatar');
+
 const addButton = content.querySelector('.profile__add-button');
+const avatarWrapper = content.querySelector('.profile__avatar-wrapper');
+
+
 //для валидатора
 const config = {
  form: `.popup__data`,
@@ -41,15 +47,19 @@ popupNewForm.setEventListeners();*/
 //информация о профиле
 const userInfo = new UserInfo({
  profileName: '.profile__title',
- profileAbout: '.profile__subtitle'
+ profileAbout: '.profile__subtitle',
+ profileAvatar: '.profile__avatar'
 });
+
 
 //эксепляр класса - форма редактирования профиля
 const popupProfileForm = new PopupWithForm('.popup_edit-profile', (evt) => {
  evt.preventDefault();//не отправлять форму
  const formData = popupProfileForm.getInputValues();
- userInfo.setUserInfo(formData); //вставляет данные из формы на страницу
- popupProfileForm.close();
+ api.editUserProfile(formData).then((data) => {
+  userInfo.setUserInfo(data);//вставляет данные из формы на страницу
+  popupProfileForm.close();
+ })
 });
 popupProfileForm.setEventListeners();
 
@@ -67,13 +77,47 @@ const validatorAddForm = new FormValidator(config, document.querySelector('.popu
 validatorAddForm.enableValidation();
 const validatorEditForm = new FormValidator(config, document.querySelector('.popup__data[name=profile-form-name]'));
 validatorEditForm.enableValidation();
-
+const validatorAvatarForm = new FormValidator(config, document.querySelector('.popup__data[name=edit-form-avatar]'));
+validatorAvatarForm.enableValidation();
 
 //ф-ция открывает форму добавления карточки
 /*addButton.addEventListener('click', openAddCardForm);*/
 
 //открывает форму редактирования профиля
 editButton.addEventListener('click', openProfileForm);
+
+
+//эксепляр класса - форма редактирования аватара
+const popupAvatarForm = new PopupWithForm('.popup__avatar-form', (evt) => {
+ evt.preventDefault();//не отправлять форму
+ const formData = popupAvatarForm.getInputValues();
+ api.editAvatar(formData).then((data) => {
+  userInfo.setUserInfo(data);//вставляет данные из формы на страницу
+  popupAvatarForm.close();
+ })
+});
+popupAvatarForm.setEventListeners();
+
+//открывает форму редактирования аватара
+avatarWrapper.addEventListener('click', openAvatarForm);
+
+function openAvatarForm() {
+ //дергаем объект с данными пользователя
+ const userInfoData = userInfo.getUserInfo();
+ popupInfoAvatar.value = userInfoData.avatar; //вставка с шапки в форму
+ validatorAvatarForm.setSubmitButtonState();
+ popupAvatarForm.open();
+}
+
+
+//эксепляр класса - форма подтверждения
+const popupConfirm = new PopupConfirm('.popup_confirm', (card) => {
+ api.delCard(card._id)
+  .then(() => {
+   card._element.remove();
+  })
+});
+popupConfirm.setEventListeners();
 
 
 //возвращает карточку
@@ -112,18 +156,9 @@ const api = new Api({
 const getUserData = api.getUserData();
 
 getUserData.then((data) => {
- userInfo.setUserInfo(data);
+  userInfo.setUserInfo(data);
  }
 );
-
-
-
-
-
-
-
-
-
 
 
 //получение карточек промис
@@ -178,6 +213,9 @@ getArrayCards.then((cards) => {
    },
    (cardId) => {
     return api.delLikeCard(cardId);
+   },
+   (card) => {
+    popupConfirm.open(card);
    }
   );
   return card.createCard();

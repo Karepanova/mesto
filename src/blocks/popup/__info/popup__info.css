@@ -15,3 +15,7 @@
 .popup__info:first-of-type {
     margin-top: 0;
 }
+
+.popup__info:last-of-type {
+    margin-bottom: 48px;
+}

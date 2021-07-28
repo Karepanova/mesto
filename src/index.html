@@ -16,7 +16,11 @@
 
     <main class="content">
       <section class="profile">
-        <img alt="Аватар" class="profile__avatar" src="<%=require('./images/kusto.jpg')%>">
+
+        <div class="profile__avatar-wrapper">
+          <img alt="Аватар" class="profile__avatar" src=""><!--<%=require('./images/kusto.jpg')%>-->
+          <img alt="Карандаш" class="profile__avatar-pen" src="<%=require('./images/pen.svg')%>">
+        </div>
         <div class="profile__info">
           <div class="profile__record">
             <h1 class="profile__title"><!--Жак-Ив Кусто-->...</h1>
@@ -73,14 +77,14 @@
 </div>
 
 <!--аватар-->
-<div class="popup">
+<div class="popup popup__avatar-form">
   <div class="popup__container">
     <button class="popup__close-icon popup__close-new-card" type="button"></button>
     <h2 class="popup__title">Обновить аватар</h2>
-    <form class="popup__data" name="add-card-form-name" novalidate>
-      <input class="popup__info popup__info_link" id="link-avatar" name="link" placeholder="Ссылка на картинку"
+    <form class="popup__data" name="edit-form-avatar" novalidate>
+      <input class="popup__info popup__info_avatar" id="link-avatar" name="avatar" placeholder="Ссылка на картинку"
              required type="url" value="">
-      <span class="popup__error" id="link-error-avatar"></span>
+      <span class="popup__error" id="link-avatar-error"></span>
       <button class="popup__button popup__button_invalid" type="submit" value="Сохранить">Сохранить</button>
     </form>
   </div>
@@ -88,12 +92,12 @@
 
 
 <!--удалить карточку-->
-<div class="popup">
+<div class="popup popup_confirm">
   <div class="popup__container">
     <button class="popup__close-icon" type="button"></button>
     <h2 class="popup__title">Вы уверены?</h2>
     <form class="popup__data" novalidate>
-      <button class="popup__button popup__button_invalid" type="submit" value="Да">Да</button>
+      <button class="popup__button" type="submit" value="Да">Да</button>
     </form>
   </div>
 </div>

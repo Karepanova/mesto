@@ -1,15 +1,17 @@
 //создаёт карточку с текстом и ссылкой на изображение
 export default class Card {
 
- constructor(data, cardSelector, handleCardClick, handleLikeClick, handleDeleteLikeClick) {
+ constructor(data, cardSelector, handleCardClick, handleLikeClick, handleDeleteLikeClick, handleDeleteCardClick) {
   this._link = data.link;
   this._name = data.name;
   this._likes = data.likes;
   this._id = data._id;
+  this._ownerId = data.owner._id;
   this._cardSelector = cardSelector;
   this._handleCardClick = handleCardClick;
   this._handleLikeClick = handleLikeClick;
   this._handleDeleteLikeClick = handleDeleteLikeClick;
+  this._handleDeleteCardClick = handleDeleteCardClick;
  }
 
  //клонирование карточки из темплейта
@@ -28,6 +30,7 @@ export default class Card {
   this._schitaemLiki();
   this._setCardEventListeners(this._element); //вызфвает ф-цию с обработчиками событий
   this._zhirniyLikeIliNet();
+  this._estKorzinkaIliNet();
   return this._element;
  }
 
@@ -46,7 +49,7 @@ export default class Card {
 
  /*удаляет карточку*/
  _handleDelete() {
-  this._element.remove();
+  this._handleDeleteCardClick(this);
  }
 
  //лайк
@@ -82,8 +85,17 @@ export default class Card {
   /*a3557962a92bf57e4e752be0*/
  }
 
+ owner
 
- _schitaemLiki(){
+ _estKorzinkaIliNet() {
+  const MoyId = 'a3557962a92bf57e4e752be0';
+  if (MoyId !== this._ownerId) {
+   this._element.querySelector('.profile__delete').remove();
+  }
+ }
+
+
+ _schitaemLiki() {
   this._element.querySelector('.element__count-likes').textContent = this._likes.length;
  }
 
