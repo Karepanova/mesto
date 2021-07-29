@@ -17,6 +17,7 @@ export default class Api {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
    })
+   .catch((err) => {console.log(`Ошибка сервера ${err}`)});
  }
 
 
@@ -33,6 +34,7 @@ export default class Api {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
    })
+   .catch((err) => {console.log(`Ошибка сервера ${err}`)});
  }
 
 
@@ -51,6 +53,7 @@ export default class Api {
    }
    return Promise.reject(`Ошибка: ${res.status}`);
   })
+   .catch((err) => {console.log(`Ошибка сервера ${err}`)});
  }
 
 
@@ -68,6 +71,7 @@ export default class Api {
 
     return Promise.reject(`Ошибка: ${res.status}`);
    })
+   .catch((err) => {console.log(`Ошибка сервера ${err}`)});
  }
 
 
@@ -84,6 +88,7 @@ export default class Api {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
    })
+   .catch((err) => {console.log(`Ошибка сервера ${err}`)});
  }
 
 
@@ -100,6 +105,7 @@ export default class Api {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
    })
+   .catch((err) => {console.log(`Ошибка сервера ${err}`)});
  }
 
 
@@ -116,6 +122,7 @@ export default class Api {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
    })
+   .catch((err) => {console.log(`Ошибка сервера ${err}`)});
  }
 
 
@@ -134,5 +141,6 @@ export default class Api {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
    })
+   .catch((err) => {console.log(`Ошибка сервера ${err}`)});
  }
 }

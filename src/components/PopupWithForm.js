@@ -5,7 +5,12 @@ export default class PopupWithForm extends Popup {
   super(popupSelector);
   this._popupSelector = document.querySelector(popupSelector);
   this._popupForm = this._popupSelector.querySelector('.popup__data');
-  this._submitForm = submitForm; // колбэк ф-ция отправки формы
+  // колбэк ф-ция отправки формы
+  this._submitForm = (evt) => {
+   this.waitSave();
+   submitForm(evt);
+  };
+  this._popupButton = this._popupSelector.querySelector('.popup__button');
  }
 
 //собирает данные всех полей формы.
@@ -25,6 +30,15 @@ export default class PopupWithForm extends Popup {
  close() {
   this._popupForm.reset();
   super.close();
-  //this._popupForm.removeEventListener('submit', this._submitForm);
+  this.save();
  }
+
+ waitSave() {
+  this._popupButton.textContent = 'Сохранение...';
+ }
+
+ save() {
+  this._popupButton.textContent = 'Сохранить';
+ }
+
 }

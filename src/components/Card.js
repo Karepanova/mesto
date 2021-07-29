@@ -1,7 +1,7 @@
 //создаёт карточку с текстом и ссылкой на изображение
 export default class Card {
 
- constructor(data, cardSelector, handleCardClick, handleLikeClick, handleDeleteLikeClick, handleDeleteCardClick) {
+ constructor(myId, data, cardSelector, handleCardClick, handleLikeClick, handleDeleteLikeClick, handleDeleteCardClick) {
   this._link = data.link;
   this._name = data.name;
   this._likes = data.likes;
@@ -12,6 +12,7 @@ export default class Card {
   this._handleLikeClick = handleLikeClick;
   this._handleDeleteLikeClick = handleDeleteLikeClick;
   this._handleDeleteCardClick = handleDeleteCardClick;
+  this._myId = myId;
  }
 
  //клонирование карточки из темплейта
@@ -27,10 +28,10 @@ export default class Card {
   const elementImg = this._element.querySelector('.element__img');
   elementImg.src = this._link; /*тянет в клон ссылку*/
   elementImg.alt = this._name;
-  this._schitaemLiki();
+  this._countLikes(); //считаем лайки
   this._setCardEventListeners(this._element); //вызфвает ф-цию с обработчиками событий
-  this._zhirniyLikeIliNet();
-  this._estKorzinkaIliNet();
+  this._likeMark(); //жирный лайк или нет
+  this._presenceBasket(); //есть корзинка или нет
   return this._element;
  }
 
@@ -58,23 +59,22 @@ export default class Card {
    this._handleDeleteLikeClick(this._id)
     .then((card) => {
      this._likes = card.likes;
-     this._zhirniyLikeIliNet();
-     this._schitaemLiki();
+     this._likeMark();
+     this._countLikes();
     });
   } else {
    this._handleLikeClick(this._id)
     .then((card) => {
      this._likes = card.likes;
-     this._zhirniyLikeIliNet();
-     this._schitaemLiki();
+     this._likeMark();
+     this._countLikes();
     });
   }
  }
 
- _zhirniyLikeIliNet() {
-  const MoyId = 'a3557962a92bf57e4e752be0';
-  const arrId = this._likes.filter(function (val) {
-   return val._id === MoyId;
+ _likeMark() {
+  const arrId = this._likes.filter((val) => {
+   return val._id === this._myId;
   })
 
   if (arrId.length > 0) {
@@ -82,20 +82,18 @@ export default class Card {
   } else {
    this._element.querySelector('.element__button').classList.remove('element__button_active');
   }
-  /*a3557962a92bf57e4e752be0*/
  }
 
  owner
 
- _estKorzinkaIliNet() {
-  const MoyId = 'a3557962a92bf57e4e752be0';
-  if (MoyId !== this._ownerId) {
+ _presenceBasket() {
+  if (this._myId !== this._ownerId) {
    this._element.querySelector('.profile__delete').remove();
   }
  }
 
 
- _schitaemLiki() {
+ _countLikes() {
   this._element.querySelector('.element__count-likes').textContent = this._likes.length;
  }
 
