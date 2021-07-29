@@ -79,7 +79,7 @@ function openProfileForm() {
 
 
 //эксепляр класса - форма редактирования аватара
-const popupAvatarForm = new PopupWithForm('.popup__avatar-form', (evt) => {
+const popupAvatarForm = new PopupWithForm('.popup_avatar-form', (evt) => {
  evt.preventDefault();//не отправлять форму
  const formData = popupAvatarForm.getInputValues();
  api.editAvatar(formData).then((data) => {
