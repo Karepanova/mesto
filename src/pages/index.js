@@ -7,24 +7,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupConfirm from '../components/PopupConfirm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
-
-const content = document.querySelector('.content');
-const editButton = content.querySelector('.profile__edit-button');
-const formEditProfile = document.querySelector('.popup__data[name=profile-form-name]');
-const formAvatarProfile = document.querySelector('.popup__data[name=edit-form-avatar]');
-const popupInfoName = formEditProfile.querySelector('.popup__info_profile_name');
-const popupInfoAbout = formEditProfile.querySelector('.popup__info_profile_about');
-const popupInfoAvatar = formAvatarProfile.querySelector('.popup__info_avatar');
-const addButton = content.querySelector('.profile__add-button');
-const avatarWrapper = content.querySelector('.profile__avatar-wrapper');
-
-//для валидатора
-const config = {
- form: `.popup__data`,
- button: '.popup__button',
- buttonInvalid: 'popup__button_invalid',
- inputError: 'popup__info_error'
-};
+import * as consts from '../utils/constants.js';
 
 //создание экземпляра класса - открытие картинки
 const popupImg = new PopupWithImage('.popup_image-card');
@@ -46,11 +29,11 @@ const api = new Api({
 })
 
 
-const validatorAddForm = new FormValidator(config, document.querySelector('.popup__data[name=add-card-form-name]'));
+const validatorAddForm = new FormValidator(consts.config, document.querySelector('.popup__data[name=add-card-form-name]'));
 validatorAddForm.enableValidation();
-const validatorEditForm = new FormValidator(config, document.querySelector('.popup__data[name=profile-form-name]'));
+const validatorEditForm = new FormValidator(consts.config, document.querySelector('.popup__data[name=profile-form-name]'));
 validatorEditForm.enableValidation();
-const validatorAvatarForm = new FormValidator(config, document.querySelector('.popup__data[name=edit-form-avatar]'));
+const validatorAvatarForm = new FormValidator(consts.config, document.querySelector('.popup__data[name=edit-form-avatar]'));
 validatorAvatarForm.enableValidation();
 
 
@@ -63,17 +46,21 @@ const popupProfileForm = new PopupWithForm('.popup_edit-profile', (evt) => {
    userInfo.setUserInfo(data);//вставляет данные из формы на страницу
    popupProfileForm.close();
   })
+  .catch((err) => {
+   console.log(`Ошибка сервера ${err}`)
+  });
 });
 popupProfileForm.setEventListeners();
 
 //открывает форму редактирования профиля
-editButton.addEventListener('click', openProfileForm);
+consts.editButton.addEventListener('click', openProfileForm);
+
 //ф-я открытия формы редактирования профиля
 function openProfileForm() {
  //дергаем объект с данными пользователя
  const userInfoData = userInfo.getUserInfo();
- popupInfoName.value = userInfoData.name; //вставка с шапки в форму
- popupInfoAbout.value = userInfoData.about; //вставка с шапки в форму
+ consts.popupInfoName.value = userInfoData.name; //вставка с шапки в форму
+ consts.popupInfoAbout.value = userInfoData.about; //вставка с шапки в форму
  popupProfileForm.open();
 }
 
@@ -86,35 +73,50 @@ const popupAvatarForm = new PopupWithForm('.popup_avatar-form', (evt) => {
   userInfo.setUserInfo(data);//вставляет данные из формы на страницу
   popupAvatarForm.close();
  })
+  .catch((err) => {
+   console.log(`Ошибка сервера ${err}`)
+  });
 });
 popupAvatarForm.setEventListeners();
 
 //открывает форму редактирования аватара
-avatarWrapper.addEventListener('click', openAvatarForm);
+consts.avatarWrapper.addEventListener('click', openAvatarForm);
+
 function openAvatarForm() {
- //дергаем объект с данными пользователя
- const userInfoData = userInfo.getUserInfo();
- popupInfoAvatar.value = userInfoData.avatar; //вставка с шапки в форму
  validatorAvatarForm.setSubmitButtonState();
  popupAvatarForm.open();
 }
 
 //эксепляр класса - форма подтверждения
 const popupConfirm = new PopupConfirm('.popup_confirm', (card) => {
- api.delCard(card._id)
+ popupConfirm.waitSave();
+ api.delCard(card.getId())
   .then(() => {
-   card._element.remove();
+   card.removeElement();
+   popupConfirm.close();
   })
+  .catch((err) => {
+   console.log(`Ошибка сервера ${err}`)
+  });
 });
 popupConfirm.setEventListeners();
-
 
 
 //1. Загрузка информации о пользователе с сервера - промис
 const getUserData = api.getUserData();
 //2. получение карточек промис
 const getArrayCards = api.getArrayCards();
-//3.  массив промисов - ожидание исполения помисов
+//3. промис - элемент массива (Promise.all), поэтому для него отдельно кэтч прописываем
+getUserData
+ .catch((err) => {
+  console.log(`Ошибка сервера ${err}`)
+ });
+//4. промис - элемент массива (Promise.all), поэтому для него отдельно кэтч прописываем
+getArrayCards
+ .catch((err) => {
+  console.log(`Ошибка сервера ${err}`)
+ });
+//5.  массив промисов - ожидание исполения помисов
 const arrPromises = [getUserData, getArrayCards];
 const promiseAll = Promise.all(arrPromises);
 promiseAll.then(([userData, cards]) => {
@@ -124,11 +126,15 @@ promiseAll.then(([userData, cards]) => {
   evt.preventDefault();//не отправлять форму
   const item = popupNewForm.getInputValues();
   const addNewCard = api.addNewCard(item);
-  addNewCard.then((card) => {
-   const insertCard = createCard(card);
-   cardsList.addItem(insertCard);
-   popupNewForm.close();
-  })
+  addNewCard
+   .then((card) => {
+    const insertCard = createCard(card);
+    cardsList.addItem(insertCard);
+    popupNewForm.close();
+   })
+   .catch((err) => {
+    console.log(`Ошибка сервера ${err}`)
+   });
  });
  popupNewForm.setEventListeners();
 
@@ -143,7 +149,7 @@ promiseAll.then(([userData, cards]) => {
  cardsList.initialItems();
 
 //ф-ция открывает форму добавления карточки
- addButton.addEventListener('click', openAddCardForm);
+ consts.addButton.addEventListener('click', openAddCardForm);
 
  //ф-я открытия формы добавления карточки
  function openAddCardForm() {
@@ -154,17 +160,19 @@ promiseAll.then(([userData, cards]) => {
  //возвращает карточку
  function createCard(item) {
   const card = new Card(userData._id, item, '#elements-template',
-   (name, link) => {
-    popupImg.open(name, link);
-   },
-   (cardId) => {
-    return api.likeCard(cardId);
-   },
-   (cardId) => {
-    return api.delLikeCard(cardId);
-   },
-   (card) => {
-    popupConfirm.open(card);
+   {
+    handleCardClick: (name, link) => {
+     popupImg.open(name, link);
+    },
+    handleLikeClick: (cardId) => {
+     return api.likeCard(cardId);
+    },
+    handleDeleteLikeClick: (cardId) => {
+     return api.delLikeCard(cardId);
+    },
+    handleDeleteCardClick: (card) => {
+     popupConfirm.open(card);
+    }
    }
   );
   return card.createCard();

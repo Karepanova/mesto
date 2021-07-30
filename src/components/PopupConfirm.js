@@ -4,13 +4,12 @@ import Popup from './Popup.js';
 export default class PopupConfirm extends Popup {
  constructor(popupSelector, submitForm) {
   super(popupSelector);
-  this._popupSelector = document.querySelector(popupSelector);
-  this._popupForm = this._popupSelector.querySelector('.popup__data');
+  this._popupForm = this._popup.querySelector('.popup__data');
   this._submitForm = (evt) => {
    evt.preventDefault();
    submitForm(this._card);
-   this.close();
   }
+  this._popupButton = this._popup.querySelector('.popup__button');
  }
 
  setEventListeners() {
@@ -23,4 +22,16 @@ export default class PopupConfirm extends Popup {
   super.open();
  }
 
+ close() {
+  super.close();
+  this.save();
+ }
+
+ waitSave() {
+  this._popupButton.textContent = 'Удаление...';
+ }
+
+ save() {
+  this._popupButton.textContent = 'Да';
+ }
 }

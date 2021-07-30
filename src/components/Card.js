@@ -1,7 +1,12 @@
 //создаёт карточку с текстом и ссылкой на изображение
 export default class Card {
 
- constructor(myId, data, cardSelector, handleCardClick, handleLikeClick, handleDeleteLikeClick, handleDeleteCardClick) {
+ constructor(myId, data, cardSelector, {
+  handleCardClick,
+  handleLikeClick,
+  handleDeleteLikeClick,
+  handleDeleteCardClick
+ }) {
   this._link = data.link;
   this._name = data.name;
   this._likes = data.likes;
@@ -13,6 +18,7 @@ export default class Card {
   this._handleDeleteLikeClick = handleDeleteLikeClick;
   this._handleDeleteCardClick = handleDeleteCardClick;
   this._myId = myId;
+
  }
 
  //клонирование карточки из темплейта
@@ -24,8 +30,10 @@ export default class Card {
  //создание и наполнение карточки
  _renderCard() {
   this._element = this._getTemplate();
+  this._elementButton = this._element.querySelector('.element__button');
   this._element.querySelector('.element__text').textContent = this._name; /*тянет в клон текст*/
   const elementImg = this._element.querySelector('.element__img');
+
   elementImg.src = this._link; /*тянет в клон ссылку*/
   elementImg.alt = this._name;
   this._countLikes(); //считаем лайки
@@ -61,6 +69,9 @@ export default class Card {
      this._likes = card.likes;
      this._likeMark();
      this._countLikes();
+    })
+    .catch((err) => {
+     console.log(`Ошибка сервера ${err}`)
     });
   } else {
    this._handleLikeClick(this._id)
@@ -68,6 +79,9 @@ export default class Card {
      this._likes = card.likes;
      this._likeMark();
      this._countLikes();
+    })
+    .catch((err) => {
+     console.log(`Ошибка сервера ${err}`)
     });
   }
  }
@@ -78,9 +92,9 @@ export default class Card {
   })
 
   if (arrId.length > 0) {
-   this._element.querySelector('.element__button').classList.add('element__button_active');
+   this._elementButton.classList.add('element__button_active');
   } else {
-   this._element.querySelector('.element__button').classList.remove('element__button_active');
+   this._elementButton.classList.remove('element__button_active');
   }
  }
 
@@ -101,4 +115,14 @@ export default class Card {
  createCard() {
   return this._renderCard();
  }
+
+ //удаление дом-элемента
+ removeElement() {
+  this._element.remove();
+ }
+
+ getId() {
+  return this._id;
+ }
+
 }
