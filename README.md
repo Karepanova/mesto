@@ -43,4 +43,4 @@
 
 
 **Ссылка:**
-https://mesto.karepanova.ru/sign-in
+https://mesto.karepanova.ru/
